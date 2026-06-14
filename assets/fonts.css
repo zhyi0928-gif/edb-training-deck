@@ -1,0 +1,7 @@
+/* Local deck font stack. Kept offline-safe for on-site training. */
+:root {
+  --font-sans: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", "Inter", Arial, sans-serif;
+  --font-serif: "Noto Serif SC", "SimSun", Georgia, serif;
+  --font-mono: "Cascadia Mono", "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --font-display: "Microsoft YaHei UI", "Microsoft YaHei", "Space Grotesk", Arial, sans-serif;
+}

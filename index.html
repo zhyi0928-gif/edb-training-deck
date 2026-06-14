@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-themes="aurora,glassmorphism,tokyo-night,dracula">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EDB业务版图介绍 - 培训演示稿</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" id="theme-link" href="assets/themes/aurora.css">
+<link rel="stylesheet" href="assets/animations/animations.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="tpl-presenter-mode-reveal edb-deck">
+<div class="deck">
+
+  <section class="slide cover" data-title="EDB业务版图介绍">
+    <div class="ambient" data-fx="data-stream"></div>
+    <p class="kicker">EDB TRAINING / DATA PLATFORM</p>
+    <h1 class="hero-title" data-anim="rise-in">EDB业务版图介绍</h1>
+    <p class="hero-subtitle">从宏中观数据、行业数据到经营数据的一体化认知训练</p>
+    <div class="hero-panel glass-card">
+      <div><b>讲师：张译</b><span>培训主讲</span></div>
+      <div><b>部门：数据产品部数据规划部</b><span>组织信息</span></div>
+      <div><b>受众：数据产品部</b><span>内部培训对象</span></div>
+    </div>
+    <button class="jump primary" data-goto="2">开始</button>
+    <aside class="notes">
+      <p>开场先把这次培训的目标讲清楚：今天不是做一次普通汇报，而是把 EDB 当成一个成熟数据平台产品来理解。</p>
+      <p><strong>EDB业务版图</strong>的核心，不只是有哪些表、有哪些数据源，而是这些数据如何服务投研、产品、数据应用和智能问数场景。</p>
+      <p>提醒大家现场可以随时提问。你自己按 <strong>S</strong> 打开讲者模式，按 <strong>T</strong> 切换主题，按 <strong>E</strong> 进入当前页可编辑模式。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="60分钟训练地图">
+    <p class="kicker">NAVIGATION</p>
+    <h2 class="h2">60分钟训练地图</h2>
+    <div class="nav-grid">
+      <button class="nav-card" data-goto="4"><span>01</span><b>业务版图</b><em>EDB定位 / 四大模块</em></button>
+      <button class="nav-card" data-goto="7"><span>02</span><b>数据结构</b><em>1.0 / 2.0 / 维度体系</em></button>
+      <button class="nav-card" data-goto="17"><span>03</span><b>宏观数据</b><em>来源 / 口径 / 发布节奏</em></button>
+      <button class="nav-card" data-goto="29"><span>04</span><b>行业数据</b><em>外部联动 / 中观验证</em></button>
+      <button class="nav-card" data-goto="36"><span>05</span><b>经营数据</b><em>公司维度 / 横纵比较</em></button>
+      <button class="nav-card" data-goto="40"><span>06</span><b>SQL应用</b><em>定位指标 / 覆盖查询 / 案例切换</em></button>
+    </div>
+    <aside class="notes">
+      <p>这一页是全场导航。建议先告诉大家：今天会从产品认知讲到实操，不会只停留在概念层。</p>
+      <p>前半段解决“EDB到底是什么、结构怎么理解”；中段解决“不同业务模块的数据怎么判断”；后半段进入<strong>SQL查询和截图素材</strong>，方便大家把培训内容带回日常工作。</p>
+      <p>现场如果时间紧，可以优先讲 1、2、6 三部分；如果受众更偏业务，可以把宏观、行业和经营数据部分讲得更细。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="培训目标">
+    <p class="kicker">OUTCOME</p>
+    <h2 class="h2">学完应该能回答的 5 个问题</h2>
+    <div class="question-stack">
+      <div class="question-row"><span>01</span>一个指标应该归到中国宏观、地方经济、国际宏观还是行业经济？</div>
+      <div class="question-row"><span>02</span>EDB1.0 的套表关系是什么，为什么会演进到 EDB2.0？</div>
+      <div class="question-row"><span>03</span>维度体系如何让指标从“名称驱动”升级为“结构驱动”？</div>
+      <div class="question-row"><span>04</span>宏观、行业、经营数据分别服务什么研究问题？</div>
+      <div class="question-row"><span>05</span>有一个具体查询需求时，如何用 SQL 快速定位指标和覆盖范围？</div>
+    </div>
+    <button class="jump" data-goto="4">下一步：产品定位</button>
+    <aside class="notes">
+      <p>这一页不是目录，而是培训验收标准。让大家知道，听完不是记住一堆表名，而是能做判断。</p>
+      <p>重点强调三个能力：第一，能判断业务归属；第二，能理解结构升级；第三，能把一个业务问题翻译成查询路径。</p>
+      <p>这也符合业务、产品、数据同事共同的工作场景：业务要知道数据能解释什么，产品要知道怎样组织体验，数据同事要知道怎样维护和查询。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="EDB产品定位">
+    <p class="kicker">PRODUCT POSITIONING</p>
+    <h2 class="h2">EDB不是数据堆叠，而是标准化经济数据库</h2>
+    <div class="two-col">
+      <div class="statement glass-card">
+        <b>业务定位</b>
+        <p>面向投研和数据应用场景，覆盖中国宏观、地方经济、国际宏观、行业经济和部分企业经营指标的标准化经济数据库。</p>
+      </div>
+      <div class="pipeline">
+        <div>分散来源</div><i></i><div>复杂口径</div><i></i><div>结构治理</div><i></i><div>可调用产品</div>
+      </div>
+    </div>
+    <div class="value-strip">
+      <span>可检索</span><span>可比较</span><span>可追踪</span><span>可调用</span>
+    </div>
+    <aside class="notes">
+      <p>先给 EDB 下一个产品级定义：它不是简单把宏观、行业、区域数据汇集到一起，而是把高度分散、来源多样、频率不一、口径复杂的数据治理成结构化时间序列产品。</p>
+      <p>这里可以讲三个基本认识：宏中观数据是观察经济运行的<strong>仪表盘</strong>；指标之间存在周期、政策和产业链传导关系；EDB的价值不只来自覆盖量，还来自口径治理、维度标准化、更新稳定性、授权合规和场景化组织能力。</p>
+      <p>这会为后面讲 1.0、2.0 和维度体系打底。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="四大业务模块">
+    <p class="kicker">BUSINESS MAP</p>
+    <h2 class="h2">四大模块，对应四类研究问题</h2>
+    <p class="module-lede">四大模块分别对应“全国层面 - 区域层面 - 海外层面 - 产业层面”的研究问题。</p>
+    <div class="module-grid">
+      <article class="module-card cyan">
+        <span class="module-layer">全国层面</span>
+        <b>中国宏观</b>
+        <p>偏重总量和政策，关注经济总量、价格、政策、信用、外需和就业如何变化。</p>
+        <small>GDP / CPI / PPI / PMI / 社融 / M2 / 财政收支 / 进出口 / 工业增加值</small>
+        <div class="module-use"><strong>典型客户用途</strong>宏观策略、资产配置、利率判断、政策研究</div>
+      </article>
+      <article class="module-card green">
+        <span class="module-layer">区域层面</span>
+        <b>地方经济</b>
+        <p>偏重区域比较和城投财政，关注省市、城市群和经济圈的增长、财政、人口、产业结构差异。</p>
+        <small>地区GDP / 财政收入 / 地方债 / 固定资产投资 / 人口 / 产业增加值</small>
+        <div class="module-use"><strong>典型客户用途</strong>区域投研、城投信用、地产研究、地方招商</div>
+      </article>
+      <article class="module-card violet">
+        <span class="module-layer">海外层面</span>
+        <b>国际宏观</b>
+        <p>偏重外部经济与全球资产联动，关注全球主要经济体变化，以及中国与外部经济如何联动。</p>
+        <small>美国CPI / 非农 / 联邦基金利率 / 欧元区PMI / 全球贸易 / IMF / WB / OECD</small>
+        <div class="module-use"><strong>典型客户用途</strong>全球宏观、汇率利率、大宗商品、跨境投资</div>
+      </article>
+      <article class="module-card amber">
+        <span class="module-layer">产业层面</span>
+        <b>行业经济</b>
+        <p>偏重产业链景气、供需和价格，关注产业或产品的供需、库存、开工率和进出口变化。</p>
+        <small>钢材价格 / 煤炭库存 / 化工品开工率 / 汽车销量 / 半导体销售额 / 公司产销量</small>
+        <div class="module-use"><strong>典型客户用途</strong>行业研究、商品研究、周期判断、公司盈利预测、个股研究、信用分析、基本面跟踪、业绩前瞻</div>
+      </article>
+    </div>
+    <aside class="notes">
+      <p>这一页把四大模块讲成四个研究视角：全国层面、区域层面、海外层面、产业层面。</p>
+      <p>中国宏观偏总量和政策，地方经济偏区域比较和城投财政，国际宏观偏外部经济和全球资产联动，行业经济偏产业链景气、供需和价格。</p>
+      <p>每张卡片鼠标悬停会显示典型客户用途：宏观策略、区域投研、全球宏观、行业研究和基本面跟踪等。现场可以悬停一两张卡片演示一下。</p>
+      <p>建议现场用一个例子串起来：同样是 GDP，全国 GDP 进中国宏观，各省 GDP 进地方经济，美国 GDP 进国际宏观；如果核心对象变成某个行业或产品，就进入行业经济。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="业务归属判断">
+    <p class="kicker">CLASSIFICATION LOGIC</p>
+    <h2 class="h2">如何判断数据所属业务？</h2>
+    <div class="decision-board">
+      <div class="decision-card"><b>全国总量</b><span>中国宏观</span><p>描述中国整体经济状况的总量或平均值，不包含具体省市细节。</p></div>
+      <div class="decision-card"><b>区域差异</b><span>地方经济</span><p>必须关联具体省级、市级、经济圈或地理分区才体现价值。</p></div>
+      <div class="decision-card"><b>外部主体</b><span>国际宏观</span><p>描述中国以外国家、区域集团或全球整体的宏观表现。</p></div>
+      <div class="decision-card"><b>产业内部</b><span>行业经济</span><p>核心维度是特定行业、产业、产品或经营业务。</p></div>
+    </div>
+    <button class="jump primary" data-goto="7">进入数据结构</button>
+    <aside class="notes">
+      <p>这一页可以当作新人判断指标归属的规则卡。判断时不要先看表名，先看指标描述对象。</p>
+      <p>如果描述对象是全国整体，归中国宏观；如果必须有省市、地市或经济圈，归地方经济；如果对象是海外国家或全球整体，归国际宏观；如果核心对象是行业、产品或业务，就归行业经济。</p>
+      <p>这个判断逻辑很重要，因为后面的表结构、维度和查询 SQL 都围绕这种业务划分展开。</p>
+    </aside>
+  </section>
+
+  <section class="slide section-divider" data-title="章节：数据结构">
+    <p class="kicker">PART 01</p>
+    <h2 class="section-title">EDB数据结构介绍</h2>
+    <p class="section-lede">从 1.0 套表到 2.0 指标治理，理解 EDB 的底层组织方式。</p>
+    <button class="jump" data-goto="8">开始本章</button>
+    <aside class="notes">
+      <p>切到第一章，告诉大家这一章会比较“底层”，但不要把它讲成纯技术表结构。</p>
+      <p>核心讲法是：这些表回答不同问题。指标表回答“这是什么指标”，数据表回答“它在某个时间点是多少”，树形表回答“用户从哪里找到它”，维度和常量回答“怎样筛选、比较和保持统一”。</p>
+      <p>这样业务和产品同事也能听懂。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="EDB1.0套表结构">
+    <p class="kicker">EDB 1.0</p>
+    <h2 class="h2">1.0围绕 IndicatorCode 组织套表关系</h2>
+    <p class="module-lede">EDB1.0的四个模块虽然在来源、频率和维度承载方式上有所差异，但底层都围绕“指标表 - 数据表 - 树形表 - 常量表 - 维度信息”形成套表关系。</p>
+    <div class="content-shot-layout structure-layout">
+      <figure class="shot-card tall">
+        <img data-zoomable src="assets/source-images/image1.png" alt="EDB套表结构原始截图">
+        <figcaption>原始材料中的套表关系图</figcaption>
+      </figure>
+      <div class="table-like compact business-understanding">
+        <div class="head">表类型</div><div class="head">主要作用</div><div class="head">业务理解</div>
+        <div>指标表</div><div>记录指标代码、中文名称、数据来源、频率、单位、开发状态等基础信息</div><div>回答“这是什么指标”，相当于数据产品的身份证</div>
+        <div>数据表</div><div>记录指标在各期的时间序列数据，包括发布日期、截止日期和指标值</div><div>回答“这个指标在某个时间点是多少”</div>
+        <div>树形表</div><div>记录目录层级和指标挂接关系</div><div>回答“用户从哪个目录找到它”</div>
+        <div>维度表/维度字段</div><div>记录频率、区域、统计口径、产品、行业等维度</div><div>回答“这个指标可以如何筛选、组合和比较”</div>
+        <div>常量表</div><div>记录常量类别、代码和名称</div><div>回答“系统中的枚举值如何保持统一”</div>
+      </div>
+    </div>
+    <aside class="notes">
+      <p>第 8 页重点讲 EDB1.0 的套表关系。这里不要只停在结构图，要把材料里“业务理解”一起讲出来。</p>
+      <p>EDB1.0 的四个模块虽然在来源、频率和维度承载方式上有所差异，但底层都围绕<strong>指标表、数据表、树形表、常量表和维度信息</strong>形成套表关系。</p>
+      <p>建议顺着右侧这张表讲：指标表回答“这是什么指标”，数据表回答“某个时间点是多少”，树形表回答“从哪个目录找到它”，维度信息回答“如何筛选和比较”，常量表回答“系统枚举如何统一”。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="EDB1.0模块套表映射">
+    <p class="kicker">TABLE MAP</p>
+    <h2 class="h2">1.0四大模块的套表映射</h2>
+    <div class="table-like compact">
+      <div class="head">表类型</div><div class="head">中国宏观</div><div class="head">地方经济</div><div class="head">国际宏观</div><div class="head">行业经济</div>
+      <div>指标表</div><div>C_ED_IndicatorMain</div><div>C_ED_LocIndicatorMain</div><div>C_GED_IndicatorMain</div><div>C_IN_IndicatorMain</div>
+      <div>数据表</div><div>宏观基础指标数据 C_ED_MacroIndicatorData<br>宏观区域经济数据 C_ED_RegEconData<br>宏观行业财务数据 C_ED_IndFinData<br>宏观海关贸易数据 C_ED_CustomsData</div><div>地方经济运行数据表 C_ED_LocMacroIndData</div><div>国际宏观指标数据表 C_GED_MacroIndicatorData</div><div>行业指标数据表 C_IN_IndicatorDataV</div>
+      <div>常量表</div><div>C_ED_IDXSystemConst</div><div>C_ED_LocSystemConst</div><div>C_GED_IDXSystemConst</div><div>C_IN_SystemConst</div>
+      <div>树形表</div><div>C_ED_IndicatorTree</div><div>C_ED_LocIndicatorTree</div><div>C_GED_IndicatorTree</div><div>C_IN_IndicatorTree</div>
+      <div>维度表</div><div>C_ED_IndicatorDimension</div><div>-</div><div>-</div><div>C_IN_IndicatorDimension</div>
+    </div>
+    <div class="callout">“国际宏观和地方经济没有独立维度表”并不表示没有维度，而是维度信息更多承载在指标表字段中，例如统计区域、统计口径和频率。</div>
+    <aside class="notes">
+      <p>这一页把表名露出来，但不要逐个背。建议讲“同构”和“差异”两个词。</p>
+      <p>同构是指四个模块都有指标、数据、常量、树形这些基本关系；差异是不同模块因为来源、频率和维度承载方式不同，具体表名和维度设计不完全一样。</p>
+      <p>这里要加上一个容易误解的点：国际宏观和地方经济没有独立维度表，并不代表没有维度，而是维度更多放在指标表字段里，比如统计区域、统计口径和频率。</p>
+      <p>对数据同事来说，这页是后续 SQL 的地图；对业务和产品同事来说，知道有这层结构就能理解为什么一个指标查询需要跨表关联。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="EDB1.0与2.0对比">
+    <p class="kicker">STRUCTURE COMPARISON</p>
+    <h2 class="h2">EDB1.0 / 2.0 结构对照</h2>
+    <div class="compare-grid">
+      <div class="compare-col old">
+        <h3>EDB1.0</h3>
+        <p>以模块套表为主，围绕 IndicatorCode 关联指标、数据、树形、常量和维度。</p>
+        <ul><li>检索依赖目录与名称</li><li>维度部分承载在字段中</li><li>跨源口径差异需要人工判断</li><li>更像“数据组织体系”</li></ul>
+      </div>
+      <div class="compare-col new">
+        <h3>EDB2.0</h3>
+        <p>以标准化指标治理为核心，统一指标信息、时间序列、目录树、维度标签和辅助功能。</p>
+        <ul><li>检索增强和智能问数友好</li><li>维度标签统一表达</li><li>支持产业链和上市公司产品关联</li><li>更像“数据产品治理体系”</li></ul>
+      </div>
+    </div>
+    <aside class="notes">
+      <p>这一页是用户明确要求的 1.0 / 2.0 对照页。建议讲一个转折：1.0解决“数据怎么放”，2.0进一步解决“指标怎么被理解”。</p>
+      <p>1.0依赖模块套表和 IndicatorCode，已经能完成结构化检索和时间序列组织。2.0在此基础上增强标准名称、维度识别、标签体系、授权和场景化组织。</p>
+      <p>这也是为什么 2.0 对搜索、推荐、智能问数、产业链联动更关键。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="EDB2.0套表形式">
+    <p class="kicker">EDB 2.0</p>
+    <h2 class="h2">2.0的套表形式：按五类表单理解统一治理框架</h2>
+    <div class="form-story-grid">
+      <article class="form-story-card">
+        <span class="form-story-meta">指标基本信息</span>
+        <b>EDB指标基本信息表</b>
+        <p>统一记录指标名称、代码、来源、频率、单位、授权等基础信息。</p>
+      </article>
+      <article class="form-story-card">
+        <span class="form-story-meta">时间序列数据</span>
+        <b>基础 / 特色 / 债券 / 行业数据</b>
+        <p>中国宏观基础数据、中国宏观特色数据、宏观债券市场数据、行业经济基础数据等，按场景存储指标值。</p>
+      </article>
+      <article class="form-story-card">
+        <span class="form-story-meta">指标目录树</span>
+        <b>层级表与树形表</b>
+        <p>宏观指标层级表、地方经济树形表、国际宏观树形表、行业经济树形表等，支撑目录检索、前台展示和层级浏览。</p>
+      </article>
+      <article class="form-story-card">
+        <span class="form-story-meta">维度与标签</span>
+        <b>标准名称与维度识别</b>
+        <p>EDB业务标签表、EDB指标维度信息表、`edb_ind_dim_info_all` 等，支持标准名称、维度识别、智能问数和场景标签。</p>
+      </article>
+      <article class="form-story-card">
+        <span class="form-story-meta">辅助功能表</span>
+        <b>映射、规则、换算</b>
+        <p>海关产品代码表、数据更新规则表、单位换算表等，用于商品映射、更新监控、单位换算和易用性提升。</p>
+      </article>
+    </div>
+    <div class="callout">重点不是“表更多了”，而是把指标基本信息、序列数据、目录树、维度标签和辅助能力拆成一套统一治理框架。</div>
+    <aside class="notes">
+      <p>这一页用材料 1.2 章节里的第一张表，讲 2.0 的套表形式。</p>
+      <p>要强调它不再只是按业务模块各自维护套表，而是把指标基本信息、时间序列、目录树、维度标签和辅助功能抽出来，形成统一的治理框架。</p>
+      <p>讲这一页时，中文不要省略，因为这正是新人理解 2.0 结构最直接的入口。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="EDB2.0模块套表映射">
+    <p class="kicker">2.0 TABLE MAP</p>
+    <h2 class="h2">2.0在四大模块中的套表映射</h2>
+    <div class="table-like compact merged-table">
+      <div class="head"></div><div class="head">中国宏观</div><div class="head">地方经济</div><div class="head">国际宏观</div><div class="head">行业经济</div>
+      <div>指标基本信息</div><div class="span-4">EDB指标信息表 C_ED_IndicatorInfo</div>
+      <div>数据表(免费公开)</div><div>中国宏观基础数据 C_ED_MacroBasicData</div><div>地方经济基础数据 C_ED_LocBasicData</div><div>国际宏观基础数据 C_ED_GlbBasicData</div><div>行业经济基础数据 C_ED_IndBasicData</div>
+      <div>数据表(需授权)</div><div>中国宏观特色数据 C_ED_MacroCharData<br>宏观债券市场数据 C_ED_BondData</div><div>地方经济特色数据 C_ED_LocCharData</div><div>国际宏观特色数据 C_ED_GlbCharData</div><div>行业经济特色数据 C_ED_IndCharData</div>
+      <div>指标目录树</div><div>中国宏观指标层级表 C_ED_IndicatorLevel</div><div>地方经济指标层级表 C_ED_LocIndicatorLevel</div><div>国际宏观指标树形表 C_GED_IndicatorTree</div><div>行业指标树 C_IN_IndicatorTree</div>
+      <div>维度与标签</div><div class="span-4">EDB业务标签表 C_ED_BusinessTag<br>EDB指标维度信息表(全) edb_ind_dim_info_all</div>
+      <div>辅助功能表</div><div class="span-4">海关产品代码表 CT_CustomsProducts<br>EDB数据更新规律表 C_ED_DataUpdateRule<br>EDB单位换算表 C_ED_UnitTrans<br>EDB系统常量表 C_ED_SystemConst</div>
+    </div>
+    <aside class="notes">
+      <p>这一页对应材料 1.2 章节里的第二张表，形式上类似第 9 页，但内容换成 2.0。</p>
+      <p>这里最值得强调的是：2.0 的指标信息、维度标签和辅助功能已经统一了，而数据表会按照免费公开、需授权、场景类型继续细分。</p>
+      <p>对业务同事来说，看到的是检索更清楚；对数据同事来说，背后其实是统一的标准名称、标签和更新规则在发挥作用。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="EDB2.0升级原因">
+    <p class="kicker">WHY 2.0</p>
+    <h2 class="h2">2.0的重点不是扩表，而是标准化指标治理</h2>
+    <div class="pain-grid">
+      <div class="pain-card"><b>同名异义</b><p>“销量”可能是汽车销量、商品房销售面积、企业产品销量，也可能是当期值或累计值。</p></div>
+      <div class="pain-card"><b>异名同义</b><p>“同比增速”“同比增长率”“同比”在不同来源中可能表达近似含义。</p></div>
+      <div class="pain-card"><b>口径隐含</b><p>区域、主体、产品、计价方式、统计期间和数据类型常常没有完整写进名称。</p></div>
+      <div class="pain-card"><b>智能问数困难</b><p>只靠自然语言名称，系统难以稳定识别、推荐、下钻和解释指标。</p></div>
+    </div>
+    <aside class="notes">
+      <p>讲 2.0 时一定避免说成“新版表更多”。真正的升级是从多源数据收集，升级为<strong>标准化指标治理</strong>。</p>
+      <p>多源宏中观数据天然有同名异义、异名同义、频率不一致、单位不一致、来源修订和授权边界差异。如果只做采集，前端会出现大量相似名称，智能问数也很难稳定。</p>
+      <p>所以 2.0 要建立统一维度、常量和标签体系，让系统识别指标名称背后的结构。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="EDB2.0维度体系">
+    <p class="kicker">DIMENSION SYSTEM</p>
+    <h2 class="h2">维度体系，是 EDB 的“指标语法”</h2>
+    <div class="dimension-groups">
+      <button class="dim-card active"><b>空间与主体</b><span>谁、在哪里发生</span><p>统计区域、统计区域B、发布企业、统计企业、统计主体。</p></button>
+      <button class="dim-card"><b>指标主题</b><span>统计什么</span><p>原子指标类别、派生指标类别，识别核心经济含义。</p></button>
+      <button class="dim-card"><b>产业与产品</b><span>属于哪个行业或产品</span><p>原始行业、原始产品、海关产品，连接产业链和产品研究。</p></button>
+      <button class="dim-card"><b>口径与期间</b><span>按什么口径统计</span><p>统计口径、统计期间、计价方式，保障跨期跨源可比。</p></button>
+      <button class="dim-card"><b>补充解释</b><span>还需要哪些说明</span><p>原子指标补充、行业产品补充，承载影响理解的限定信息。</p></button>
+    </div>
+    <aside class="notes">
+      <p>维度体系可以理解为 EDB 的“指标语法”。一个指标不再只是“汽车销量”“工业增加值”“进口金额”这样的名称，而是由一组可解释要素共同构成。</p>
+      <p>这五组维度分别回答：谁、在哪里发生；统计什么；属于哪个行业或产品；按什么口径和期间披露；还有什么补充说明。</p>
+      <p>现场可以点击卡片，让大家看到卡片反馈，强调这是给前端筛选、后台治理和智能问数共同使用的结构化语言。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="15个维度总览">
+    <p class="kicker">15 DIMENSIONS</p>
+    <h2 class="h2">15个维度：从名称驱动到结构驱动</h2>
+    <div class="detail-explorer">
+      <div class="detail-nav dimension-nav">
+        <button class="detail-pill active" data-panel-group="dimension15" data-panel-target="dim-region">统计区域</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-region-b">统计区域B</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-publisher">发布企业</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-entity">统计企业</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-subject">统计主体</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-atomic">原子指标类别</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-atomic-extra">原子指标类别补充信息</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-caliber">统计口径</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-period">统计期间</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-price">计价方式</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-industry">原始行业</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-product">原始产品</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-customs">海关产品</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-product-extra">行业产品补充信息</button>
+        <button class="detail-pill" data-panel-group="dimension15" data-panel-target="dim-derived">派生指标类别</button>
+      </div>
+      <div class="detail-panels">
+        <article class="detail-panel active" data-panel-id="dimension15" data-panel-name="dim-region">
+          <h3>统计区域</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>指标所描述的主要地理范围或经济区域，可以是国家、地区、省市、城市群或特定区域。</p></div>
+            <div><b>主要回答的问题</b><p>数据发生在哪里？</p></div>
+            <div><b>典型使用场景</b><p>用于区域比较、地方经济研究、国际宏观对比和地域筛选。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-region-b">
+          <h3>统计区域B</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>当一个指标同时涉及两个相互独立的区域时，用于记录第二个区域，常见于贸易、流向、来源地与目的地分析。</p></div>
+            <div><b>主要回答的问题</b><p>另一个相关区域是谁？</p></div>
+            <div><b>典型使用场景</b><p>用于理解进出口来源/去向、跨区域流动、区域之间的比较或关系。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-publisher">
+          <h3>发布企业</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>指标由企业自身披露时，用于识别披露数据的企业主体。</p></div>
+            <div><b>主要回答的问题</b><p>这项数据由哪家企业发布？</p></div>
+            <div><b>典型使用场景</b><p>用于上市公司公告、企业经营数据、月度经营公告等场景的主体识别。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-entity">
+          <h3>统计企业</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>指标统计对象指向某一企业或其业务单元时，用于识别被统计的企业对象。</p></div>
+            <div><b>主要回答的问题</b><p>这项数据统计的是哪家企业？</p></div>
+            <div><b>典型使用场景</b><p>用于区分“披露方”和“被统计对象”，特别适用于集团、子公司或第三方统计企业数据。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-subject">
+          <h3>统计主体</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>指标描述的非区域、非企业类统计对象，可以是人群、机构、市场、资产类别、政策对象或业务对象。</p></div>
+            <div><b>主要回答的问题</b><p>统计对象是谁或是什么？</p></div>
+            <div><b>典型使用场景</b><p>用于区分居民、企业、金融机构、财政部门、车辆类型、资产类别等观察对象。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-atomic">
+          <h3>原子指标类别</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>指标最核心、最不可再拆的度量含义，表达“到底在统计什么”。</p></div>
+            <div><b>主要回答的问题</b><p>核心度量是什么？</p></div>
+            <div><b>典型使用场景</b><p>用于识别产量、销量、库存、价格、金额、数量、利润、指数、利率等基础统计目标。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-atomic-extra">
+          <h3>原子指标类别补充信息</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>对核心度量的必要补充，用于说明统计方法、属性、范围或不适合并入主名称的限定含义。</p></div>
+            <div><b>主要回答的问题</b><p>核心度量还需要什么解释？</p></div>
+            <div><b>典型使用场景</b><p>用于区分合计、小计、口径属性、统计方法、特定属性说明等补充信息。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-caliber">
+          <h3>统计口径</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>指标值的统计方式或结果形态，说明数值是当期、累计、期末、同比、环比、增量还是其他口径。</p></div>
+            <div><b>主要回答的问题</b><p>这个数值按什么口径计算？</p></div>
+            <div><b>典型使用场景</b><p>用于判断能否相加、能否横向比较、能否做同比环比分析。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-period">
+          <h3>统计期间</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>指标披露或统计的时间颗粒度与期间类型，例如日、周、月、季、年或不定期。</p></div>
+            <div><b>主要回答的问题</b><p>数据覆盖哪个时间窗口？</p></div>
+            <div><b>典型使用场景</b><p>用于判断更新节奏、分析周期、时间序列对齐和报表展示频率。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-price">
+          <h3>计价方式</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>用于说明价格或金额类指标的计量基础，例如现价、不变价、基期价、名义口径或实际口径。</p></div>
+            <div><b>主要回答的问题</b><p>价格或金额按什么价格基础表达？</p></div>
+            <div><b>典型使用场景</b><p>用于区分名义值与实际值，避免把未剔除价格影响的数据与可比价数据混用。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-industry">
+          <h3>原始行业</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>保留数据源披露或指标名称中出现的行业表达，用于反映指标原始所属行业语义。</p></div>
+            <div><b>主要回答的问题</b><p>指标原文属于哪个行业？</p></div>
+            <div><b>典型使用场景</b><p>用于行业经济检索、行业口径保留、原始披露语义还原。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-product">
+          <h3>原始产品</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>保留非海关场景下指标所涉及的产品、服务或业务品类表达。</p></div>
+            <div><b>主要回答的问题</b><p>指标描述的是哪个产品或服务？</p></div>
+            <div><b>典型使用场景</b><p>用于产业链研究、产品价格、产销量、库存、开工率和企业主营业务分析。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-customs">
+          <h3>海关产品</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>针对海关贸易数据形成的商品维度，用于表达进出口统计中的商品或商品类目。</p></div>
+            <div><b>主要回答的问题</b><p>贸易数据对应哪个海关商品？</p></div>
+            <div><b>典型使用场景</b><p>用于进出口金额、数量、单价、贸易伙伴和商品结构分析。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-product-extra">
+          <h3>行业产品补充信息</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>对产品或行业维度的补充说明，承载产品规格、用途、形态、市场层级或其他不宜作为主产品的说明。</p></div>
+            <div><b>主要回答的问题</b><p>产品或行业还需要什么补充说明？</p></div>
+            <div><b>典型使用场景</b><p>用于细化产品属性、规格差异、应用场景和口径说明，提升检索与解释准确性。</p></div>
+          </div>
+        </article>
+        <article class="detail-panel" data-panel-id="dimension15" data-panel-name="dim-derived">
+          <h3>派生指标类别</h3>
+          <div class="detail-grid">
+            <div><b>对外定义</b><p>由原子指标和其他维度要素组合形成的业务化表达，用于保留拆分后仍需要整体理解的专业术语或复合含义。</p></div>
+            <div><b>主要回答的问题</b><p>组合后的业务指标如何理解？</p></div>
+            <div><b>典型使用场景</b><p>用于解释占比、价差、利润率、结构项、细分专业指标等派生概念。</p></div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="abstract-points abstract-four">
+      <div class="abstract-point">
+        <b>名称做减法</b>
+        <p>EDB2.0 不把所有限定信息都塞进指标名称，而是把难以完整表达的要素沉淀为维度标签。</p>
+      </div>
+      <div class="abstract-point">
+        <b>前台更易读</b>
+        <p>用户看到的指标名称仍保持简短、易读、便于传播，不会被冗长口径拖垮。</p>
+      </div>
+      <div class="abstract-point">
+        <b>后台更可治理</b>
+        <p>系统和产品筛选层保留更完整的结构化信息，用于区分相似指标、解释口径差异、支持智能问数并增强输出稳定性。</p>
+      </div>
+      <div class="abstract-point">
+        <b>最终价值</b>
+        <p>维度体系让指标能够被准确理解、稳定检索，并支持组合分析。</p>
+      </div>
+    </div>
+    <aside class="notes">
+      <p>这一页保留 15 个维度全量名称，但视觉上不要做成大表，而是做成维度卡片云。</p>
+      <p>这里重点讲“抽象与收敛”：名称保持简短，复杂限定信息沉淀为维度标签。</p>
+      <p>前端因此更易读，后台因此更可治理，最终实现准确理解、稳定检索和组合分析。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="合规授权">
+    <p class="kicker">COMPLIANCE</p>
+    <h2 class="h2">合规授权决定数据能如何展示和使用</h2>
+    <p class="lede compact-lede">宏中观数据中既有政府公开数据，也有采购数据、代理数据、协会数据、第三方资讯数据和公司披露数据。不同来源在是否可展示真实来源、是否可商用、是否可用于大模型训练或问答等方面可能存在差异，因此需要在指标级或来源级建立清晰授权类型。</p>
+    <div class="auth-grid">
+      <div class="auth-card ok"><b>基础数据表</b><p>免费公开、聚源加工免费数据、已授权数据，通常可展示真实源或聚源计算。</p></div>
+      <div class="auth-card warn"><b>特色数据表</b><p>付费但未授权、友商采集、涉付费加工，存在合规风险，展示需谨慎。</p></div>
+      <div class="auth-card danger"><b>高风险来源</b><p>已侵权或无法言明采集渠道，或转载需授权的数据源，需按规则处理。</p></div>
+      <div class="auth-card proxy"><b>代理数据</b><p>涉及全国银行间同业拆借中心、中国外汇交易中心、中证指数公司等授权公开源。</p></div>
+    </div>
+    <div class="shot-strip three no-caption compliance-samples">
+      <figure><img data-zoomable src="assets/source-images/compliance-sample-1.png" alt="合规授权样例1"></figure>
+      <figure><img data-zoomable src="assets/source-images/compliance-sample-2.png" alt="合规授权样例2"></figure>
+      <figure><img data-zoomable src="assets/source-images/compliance-sample-3.png" alt="合规授权样例3"></figure>
+    </div>
+    <button class="jump" data-goto="17">下一章：宏观数据</button>
+    <aside class="notes">
+      <p>合规授权不是法务角落里的附加项，而是数据产品能力的一部分。</p>
+      <p>宏中观数据既有政府公开数据，也有采购数据、代理数据、协会数据、第三方资讯数据和公司披露数据。不同来源在真实来源展示、商用、模型训练或问答方面边界不同。</p>
+      <p>所以要在指标级或来源级建立授权类型。对产品同事来说，这会影响前端展示；对数据同事来说，这会影响采编维护和对外输出。</p>
+    </aside>
+  </section>
+
+  <section class="slide section-divider" data-title="章节：宏观数据">
+    <p class="kicker">PART 02</p>
+    <h2 class="section-title">宏观数据内容介绍</h2>
+    <p class="section-lede">把宏观数据从“零散指标”变成经济运行、政策变化和市场定价的基础语言。</p>
+    <button class="jump" data-goto="18">开始本章</button>
+    <aside class="notes">
+      <p>第二章开始讲宏观数据。这里要把听众从表结构带回业务理解。</p>
+      <p>宏观数据关注更高层级的经济环境，包括增长、物价、就业、货币金融、财政、贸易、房地产、消费投资和资本市场环境。</p>
+      <p>本章重点不是列指标，而是建立分析框架和常见数据源认知。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="宏观分析框架">
+    <p class="kicker">MACRO FRAMEWORK</p>
+    <h2 class="h2">理解宏观数据：先建立层次化框架</h2>
+    <div class="flow-ladder">
+      <div><span>01</span><b>增长</b><p>经济处于什么阶段，是改善还是走弱。</p></div>
+      <div><span>02</span><b>价格</b><p>通胀压力是上升还是下降。</p></div>
+      <div><span>03</span><b>政策</b><p>货币政策和财政政策偏宽松还是偏收紧。</p></div>
+      <div><span>04</span><b>金融条件</b><p>利率、汇率、信用和流动性是否支持实体经济。</p></div>
+      <div><span>05</span><b>资产影响</b><p>如何影响股票、债券、商品、房地产和外汇。</p></div>
+    </div>
+    <aside class="notes">
+      <p>宏观数据最怕讲成指标清单。建议用这五层框架组织：增长、价格、政策、金融条件、资产影响。</p>
+      <p>先看经济阶段，再看通胀，再看政策反应，接着看利率、汇率、信用和流动性，最后回到资产价格。</p>
+      <p>这样宏观数据就不只是 GDP、CPI、PMI，而是一套解释经济运行、政策变化和市场定价的基础语言。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="宏观传导链条">
+    <p class="kicker">TRANSMISSION</p>
+    <h2 class="h2">把“政策 - 中间变量 - 实体结果”画成一张传导图</h2>
+    <div class="transmission-map">
+      <div class="transmission-head">
+        <span>起点变量</span>
+        <span>中间变量</span>
+        <span>实体传导</span>
+        <span>验证指标</span>
+      </div>
+      <div class="transmission-lane cyan">
+        <b class="lane-label">货币政策</b>
+        <div class="transmission-node">流动性 / 利率</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node">信用扩张</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node">投资 / 消费</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node result">工业增加值 / GDP / 利润</div>
+      </div>
+      <div class="transmission-lane green">
+        <b class="lane-label">财政支出</b>
+        <div class="transmission-node">专项债 / 财政发力</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node">基建实物工作量</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node">钢铁 / 水泥 / 机械</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node result">就业 / 工业链景气</div>
+      </div>
+      <div class="transmission-lane amber">
+        <b class="lane-label">房地产销售</b>
+        <div class="transmission-node">拿地 / 新开工</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node">施工 / 竣工</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node">土地财政</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node result">家电 / 家具 / 建材</div>
+      </div>
+      <div class="transmission-lane violet">
+        <b class="lane-label">海外需求</b>
+        <div class="transmission-node">汇率 / 出口订单</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node">国内生产</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node">出口链库存 / 开工</div>
+        <i class="transmission-link"></i>
+        <div class="transmission-node result">企业经营 / 外需景气</div>
+      </div>
+    </div>
+    <div class="transmission-summary">
+      <div><b>宏观判断</b><p>先判断政策和总量变量在哪里发力。</p></div>
+      <div><b>行业验证</b><p>再去找钢铁、地产后周期、出口链等中观指标做验证。</p></div>
+      <div><b>经营落地</b><p>最后下钻到公司经营数据，看景气是否真的传导到基本面。</p></div>
+    </div>
+    <aside class="notes">
+      <p>这一页改成真正的传导图，让听众一眼看到“起点变量、中间变量、实体传导、验证指标”是怎么连起来的。</p>
+      <p>货币政策、财政支出、房地产销售和海外需求，分别对应不同的研究主线。不要把它们讲成四组孤立指标，而要强调每条链路后面都能接到行业和经营数据。</p>
+      <p>结论要落在一句话上：EDB 的价值不只是存量覆盖，而是能支持从宏观判断一路追到行业验证和公司经营落地。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="中国宏观常见数据源">
+    <p class="kicker">DATA SOURCES</p>
+    <h2 class="h2">中国宏观常见数据源</h2>
+    <div class="macro-source-catalog">
+      <button class="source-card source-card-link" type="button" data-goto="21"><b>国家统计局</b><span>NBS</span><code>www.stats.gov.cn</code><p>宏观总量、数据库、年鉴、统计公报、普查数据的核心入口。</p></button>
+      <button class="source-card source-card-link" type="button" data-goto="23"><b>中国人民银行</b><span>PBoC</span><code>www.pbc.gov.cn</code><p>社融、货币信贷、利率、货币政策执行报告、金融市场运行。</p></button>
+      <div class="source-card"><b>国家外汇管理局</b><span>SAFE</span><code>www.safe.gov.cn</code><p>各币种汇率、国际服务贸易、跨境资金相关数据。</p></div>
+      <div class="source-card"><b>中国外汇交易中心</b><span>CFETS</span><code>www.chinamoney.com.cn</code><p>汇率与外汇市场公开信息，日度跟踪价值高。</p></div>
+      <div class="source-card"><b>全国银行间同业拆借中心</b><span>NIFC</span><code>www.chinamoney.com.cn</code><p>SHIBOR 利率等银行间资金价格，日频为主。</p></div>
+      <div class="source-card"><b>中央结算公司</b><span>CCDC</span><code>www.chinabond.com.cn</code><p>国债、企业债、城投债收益率与期限结构。</p></div>
+      <button class="source-card source-card-link" type="button" data-goto="22"><b>财政部</b><span>MoF</span><code>www.mof.gov.cn</code><p>财政收支、地方政府债务、政府性基金、财政预决算。</p></button>
+      <div class="source-card"><b>国家税务总局</b><span>SAT</span><code>www.chinatax.gov.cn</code><p>税务与征管相关数据，可辅助观察财政与经营活跃度。</p></div>
+      <div class="source-card"><b>国家审计署</b><span>NAO</span><code>www.audit.gov.cn</code><p>债务审计和专项审计结果，常用于地方债与财政核验。</p></div>
+      <button class="source-card source-card-link" type="button" data-goto="25"><b>国家发展改革委</b><span>NDRC</span><code>www.ndrc.gov.cn</code><p>PPP 项目数、月度统计、价格与政策口径信息。</p></button>
+      <div class="source-card"><b>商务部</b><span>MoC</span><code>www.mofcom.gov.cn</code><p>FDI、对外直接投资、外贸投资政策与部分公开数据。</p></div>
+      <button class="source-card source-card-link" type="button" data-goto="24"><b>海关总署</b><span>GAC</span><code>www.customs.gov.cn</code><p>进出口快讯、统计月报、商品与国别细分贸易数据。</p></button>
+      <div class="source-card"><b>人社部</b><span>MOHRSS</span><code>www.mohrss.gov.cn</code><p>就业、人力资源与社保相关公开信息。</p></div>
+    </div>
+    <aside class="notes">
+      <p>这一页改成“全量来源清单”，目的不是让大家记网址，而是让大家知道中国宏观并不只有五个部门。</p>
+      <p>可以把来源拆成四类来讲：总量统计类、货币与利率类、财政与债务类、贸易与就业类。这样听众更容易建立来源地图。</p>
+      <p>后面四页会重点展开财政部、人民银行、海关总署和发改委，因为这几个来源最容易直接影响宏观、地方和产业链研究。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="国家统计局使用指南">
+    <p class="kicker">NBS GUIDE</p>
+    <h2 class="h2">国家统计局：要同时看发布渠道和修订路径</h2>
+    <div class="guide-layout">
+      <div class="timeline">
+        <div><b>最新发布</b><p>通过“数据发布与解读”查看发布日程和新闻稿。</p></div>
+        <div><b>数据库</b><p>全国、省、主要城市；全国和省级有月、季、年频次。</p></div>
+        <div><b>统计公报 / 年鉴</b><p>公报、数据库初值、统计年鉴、数据库调整值之间存在时效差异。</p></div>
+        <div><b>普查数据</b><p>人口普查 10 年一次，经济普查 5 年一次，可能修正历史数据。</p></div>
+      </div>
+      <div class="shot-mosaic">
+        <img data-zoomable src="assets/source-images/image6.png" alt="统计信息发布日程截图">
+        <img data-zoomable src="assets/source-images/image7.png" alt="统计局发布日程列表截图">
+        <img data-zoomable src="assets/source-images/image8.png" alt="统计局数据库截图">
+      </div>
+    </div>
+    <button class="jump source-return" data-goto="20">返回数据源总览</button>
+    <aside class="notes">
+      <p>国家统计局数据看似官方统一，但使用时要关注发布渠道、初值与修订、频率和统计范围。</p>
+      <p>同一指标在新闻稿、数据库、年鉴和普查后的取值可能存在时间差和修订差异。统计公报通常先披露，年鉴和数据库调整值可能更晚。</p>
+      <p>这也是为什么 EDB 的口径说明、更新监控和版本治理很重要。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="财政部使用指南">
+    <p class="kicker">MOF GUIDE</p>
+    <h2 class="h2">财政部：财政力度、地方债和地产链条都绕不开它</h2>
+    <div class="authority-guide">
+      <div class="guide-panels">
+        <div class="guide-panel"><b>财政数据</b><p>月度披露财政收支、地方政府债务、国有及国有企业经济数据、彩票销售等。</p></div>
+        <div class="guide-panel"><b>决算专题</b><p>年度财政决算通常在 7-9 月集中披露上一年度数据，可通过“全国财政决算”专题追踪。</p></div>
+        <div class="guide-panel"><b>直接搜索</b><p>信息公开和新闻稿会不定期披露指标，搜索是补抓口径和专题信息的重要入口。</p></div>
+      </div>
+      <div class="shot-strip three authority-shots">
+        <figure><img data-zoomable src="assets/source-images/image9.png" alt="财政部数据页面截图1"><figcaption>财政数据</figcaption></figure>
+        <figure><img data-zoomable src="assets/source-images/image10.png" alt="财政部数据页面截图2"><figcaption>财政决算专题</figcaption></figure>
+        <figure><img data-zoomable src="assets/source-images/image11.png" alt="财政部搜索截图"><figcaption>搜索入口</figcaption></figure>
+      </div>
+    </div>
+    <div class="guide-meta">
+      <div><b>研究重点</b><p>财政政策力度、地方债压力、政府性基金收入、土地出让与地方财力。</p></div>
+      <div><b>使用提醒</b><p>必须区分预算数、预算执行数、决算数，以及一般公共预算、政府性基金、国资经营和社保基金口径。</p></div>
+    </div>
+    <button class="jump source-return" data-goto="20">返回数据源总览</button>
+    <aside class="notes">
+      <p>财政部这页建议讲“为什么重要”而不是讲网站结构。全国财政收支看财政政策力度，地方债看城投信用和区域债务压力，政府性基金尤其土地出让收入可以观察地产链条和地方财力。</p>
+      <p>这里最容易出错的是口径：预算数、预算执行数、决算数不是一回事；一般公共预算、政府性基金预算、国有资本经营预算和社保基金预算也不能混。</p>
+      <p>如果现场有人做地方研究，这一页可以多停半分钟。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="中国人民银行使用指南">
+    <p class="kicker">PBOC GUIDE</p>
+    <h2 class="h2">中国人民银行：货币金融分析的核心入口</h2>
+    <div class="authority-guide">
+      <div class="guide-panels">
+        <div class="guide-panel"><b>统计数据</b><p>年度和月度数据以表格形式披露，覆盖货币信贷、金融统计等六大板块。</p></div>
+        <div class="guide-panel"><b>信息公开</b><p>货币政策执行报告、人民币汇率、金融市场运行等信息分散在不同栏目。</p></div>
+        <div class="guide-panel"><b>搜索检索</b><p>央行站内信息分散、利率数据多，很多时候需要靠关键词搜索定位原始披露。</p></div>
+      </div>
+      <div class="shot-strip four authority-shots">
+        <figure><img data-zoomable src="assets/source-images/image12.png" alt="央行统计数据页面截图1"><figcaption>统计数据</figcaption></figure>
+        <figure><img data-zoomable src="assets/source-images/image13.png" alt="央行统计数据页面截图2"><figcaption>分表披露</figcaption></figure>
+        <figure><img data-zoomable src="assets/source-images/image14.png" alt="央行信息公开截图"><figcaption>信息公开</figcaption></figure>
+        <figure><img data-zoomable src="assets/source-images/image15.png" alt="央行搜索截图"><figcaption>站内搜索</figcaption></figure>
+      </div>
+    </div>
+    <div class="guide-meta">
+      <div><b>研究重点</b><p>社融、M2、金融机构信贷收支、利率、金融市场运行、货币政策执行报告。</p></div>
+      <div><b>使用提醒</b><p>社融不能只看总量，要同时看结构。若主要靠政府债券拉动，政策融资强但实体需求未必修复。</p></div>
+    </div>
+    <button class="jump source-return" data-goto="20">返回数据源总览</button>
+    <aside class="notes">
+      <p>央行数据是货币金融分析的主轴。建议把“总量”和“结构”这两个词反复强调。</p>
+      <p>比如社融多增，如果主要来自政府债券，而企业中长期贷款偏弱，那更像政策融资发力；如果企业中长期贷款、居民中长期贷款和表内信贷同步改善，才更能说明实体融资需求修复。</p>
+      <p>这页也要提醒大家：央行是难采编来源之一，因为栏目分散、利率口径多、需要频繁搜索核验。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="海关总署使用指南">
+    <p class="kicker">GAC GUIDE</p>
+    <h2 class="h2">海关总署：时效、修订和细分维度要一起看</h2>
+    <div class="authority-guide">
+      <div class="guide-panels">
+        <div class="guide-panel"><b>统计快讯</b><p>每月第一时间披露核心进出口初值，适合快速判断外需方向。</p></div>
+        <div class="guide-panel"><b>统计月报</b><p>录入数据的主要来源，表格化更完整，常见人民币和美元双口径。</p></div>
+        <div class="guide-panel"><b>在线查询</b><p>可补充商品、贸易伙伴、贸易方式等细分维度，EDB 已采集 2/4/6/8 位编码进出口数据。</p></div>
+      </div>
+      <div class="shot-strip two authority-shots">
+        <figure><img data-zoomable src="assets/source-images/image16.png" alt="海关统计快讯截图"><figcaption>统计快讯</figcaption></figure>
+        <figure><img data-zoomable src="assets/source-images/image17.png" alt="海关统计月报截图"><figcaption>统计月报</figcaption></figure>
+      </div>
+    </div>
+    <div class="guide-meta">
+      <div><b>研究重点</b><p>外需强弱、出口链景气、贸易伙伴变化、商品结构与量价拆分。</p></div>
+      <div><b>使用提醒</b><p>既要追求时效，也要注意修订。快讯看初值，月报看调整值，部分指标次年 12 月还会再修上一年度数据。</p></div>
+    </div>
+    <button class="jump source-return" data-goto="20">返回数据源总览</button>
+    <aside class="notes">
+      <p>海关页重点讲两个词：时效和修订。统计快讯适合第一时间判断方向，统计月报适合做正式入库和口径校准。</p>
+      <p>如果要做更细的行业和商品研究，在线查询非常关键，因为它能补充商品编码、国别和贸易方式这些细分维度。</p>
+      <p>这也是海关数据能同时服务宏观、行业和公司出口链研究的原因。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="发改委使用指南">
+    <p class="kicker">NDRC GUIDE</p>
+    <h2 class="h2">发改委：政策、项目和价格信号经常从这里发出</h2>
+    <div class="authority-guide single-shot">
+      <div class="guide-panels">
+        <div class="guide-panel"><b>月度统计</b><p>以月度统计数据为主，兼具宏观运行和专项领域的跟踪价值。</p></div>
+        <div class="guide-panel"><b>项目与 PPP</b><p>PPP 项目数、重大项目推进、投资相关信息常用于判断政策落地和基建链条。</p></div>
+        <div class="guide-panel"><b>价格与政策</b><p>价格调控、保供稳价、产业政策通知等信息，常作为行业研究的重要政策背景。</p></div>
+      </div>
+      <div class="shot-strip one authority-shots">
+        <figure><img data-zoomable src="assets/source-images/image18.png" alt="发改委数据截图"><figcaption>月度统计与公开信息</figcaption></figure>
+      </div>
+    </div>
+    <div class="guide-meta">
+      <div><b>研究重点</b><p>PPP、资产负债表、价格与政策方向，以及项目推进带来的投资线索。</p></div>
+      <div><b>使用提醒</b><p>发改委很多价值不在单个统计表，而在“统计数据 + 政策通知 + 项目披露”的组合阅读。</p></div>
+    </div>
+    <button class="jump source-return" data-goto="20">返回数据源总览</button>
+    <aside class="notes">
+      <p>发改委不一定像统计局和海关那样有统一数据库，但它对政策节奏、项目推进和价格调控非常关键。</p>
+      <p>所以这页要提醒大家：发改委的价值经常不是单看一个数，而是把月度统计、项目披露和政策通知拼起来读。</p>
+      <p>做基建、地产链、部分工业品和政策主题研究时，发改委往往是很关键的辅助来源。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="宏观常见疑问">
+    <p class="kicker">FAQ</p>
+    <h2 class="h2">宏观常见疑问：点击问题后展开对应解答</h2>
+    <div class="faq-accordion" data-accordion-group="macro-faq">
+      <button class="faq-item active" type="button">
+        <span class="faq-question">GDP现价、GDP不变价、GDP调整值、GDP初步核算数的区别</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>[1] 现价(名义)和不变价(实际)为对应的定义，现价就是没有剔除价格变动影响的名义价格，GDP存量数据一般以现价形式披露，增长率以不变价形式进行披露，为实际增长速度。</p>
+          <p>[2] GDP 次年会在统计年鉴上对上一年的 GDP 数据进行修正和调整，修正后的数据为调整值（初步核实数），第一次披露的数据即为初步核算数，隔年在统计年鉴上披露为最终核实数。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">可比是什么？不可比的定义</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>可比价又称为不变价格，是指计算各种总量指标所采用的扣除了价格变动因素的价格，不变价格主要用于历年对比和地区之间对比，可以消除价格变动因素的影响，所以又称固定价格、不变价格。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">价格指数单位为%和-的区别</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>[1] `CPI_当期同比 + 100 = CPI(上年同月=100)`，如 `110255493` CPI_当月同比 和 `110002855` 居民消费价格指数CPI_当月(上年同月=100)。</p>
+          <p>[2] 含基期的价格指数单位一般为 `-`；增长率类价格指数单位一般为 `%`。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">价格指数基期的含义</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>月季度：上月=100 对应当期值/环比数据；上年同月=100 对应当期值/当期同比数据；上年同期=100 对应累计值/累计同比数据。</p>
+          <p>年度：上年=100 对应当期值/当期同比数据。年度数据没有累计的概念。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">房屋、商品房施工面积、房地产开发企业房屋施工面积是同一个指标吗？</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>房屋和商品房的统计范围并不一致，大部分情况下两者数据不对应。房地产开发企业房屋施工面积也是不同指标，需要根据数据源实际披露情况录入。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">增长率、增减量、增减点的区别</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>增长率的单位一般为 `%`，常见表述是“增长 X%”或“当期/累计同比增长 XX%”；增减量的单位通常与存量数据单位一致，大多出现在金融机构存贷款余额与基期相比的增减量场景。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">哪些指标会出现数据修正？</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>GDP 次年会对上一年的数据进行修正；海关次年 12 月会对上一年月度数据进行修正；每五年一次的经济普查可能会对 GDP、人口等数据进行修正；统计年鉴也会对统计公报数据进行修正。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">财政预决算报告如何区分预算数、预算执行数、决算数？</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>每年年初国务院和各级政府会将本年预算草案和上一年度预算执行情况提请本级人民代表大会审查和批准，批准后向社会公布本年财政预算数和上年财政预算执行数。</p>
+          <p>决算草案一般于次年 6-9 月审查通过，并向社会公布财政决算数。国统局数据库中披露的一般公共预算收入/支出，通常对应中国统计年鉴和财政部披露的决算数。</p>
+        </div>
+      </button>
+    </div>
+    <aside class="notes">
+      <p>这一页改成问答折叠面板，更适合现场按听众问题顺着讲，而不是一次性把所有答案铺开。</p>
+      <p>建议优先展开 GDP 口径、价格指数基期、数据修正这几条，再根据现场讨论补充财政预决算和房地产施工面积。</p>
+      <p>想让大家记住的一句话是：宏观数据里，最容易出错的不是数值本身，而是口径混用。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="地方经济发布节奏">
+    <p class="kicker">LOCAL ECONOMY</p>
+    <h2 class="h2">地方经济数据发布具有明显周期性</h2>
+    <div class="month-grid">
+      <div class="m active">1-3月<b>预算情况</b><span>新闻稿预告</span></div>
+      <div class="m active">4-8月<b>统计公报</b><span>集中发布</span></div>
+      <div class="m">9-12月<b>决算情况</b><span>财政&债务</span></div>
+      <div class="m">9-12月<b>统计年鉴</b><span>上一年数据修正</span></div>
+    </div>
+    <div class="callout">地方经济价值：区域比较、城投信用、地方财政、地产链条和产业结构分析。</div>
+    <div class="summary-line">与全国宏观不同，地方数据常常存在发布渠道分散、地市披露不完整、口径更新较慢、年鉴滞后、统计公报先于数据库等特点。客户较为关注地方债务、财政收入、政府性基金收入、土地成交、人口和产业结构等指标之间的联动。</div>
+    <aside class="notes">
+      <p>地方经济数据和全国宏观不同，渠道更分散，地市披露不完整，年鉴滞后，统计公报往往先于数据库。</p>
+      <p>发布节奏上，年初、年中和四季度相对集中。财政数据在年初和年末分别发布预算和决算；统计公报通常 4 到 6 月集中，年鉴在四季度更新上一年度数据并做修正。</p>
+      <p>客户关注地方债务、财政收入、政府性基金收入、土地成交、人口和产业结构之间的联动。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="地方经济常见口径">
+    <p class="kicker">LOCAL FAQ</p>
+    <h2 class="h2">地方经济常见问题：点击问题后展开对应解答</h2>
+    <div class="faq-accordion compact" data-accordion-group="local-faq">
+      <button class="faq-item active" type="button">
+        <span class="faq-question">债务类指标的区别，例如一般债务、一般债券等</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>一般公共预算赤字，也就是狭义的财政赤字，等于当年一般公共预算支出总量减去收入总量，只能通过发行国债和地方政府一般债券进行弥补。</p>
+          <p>政府性基金预算赤字通过发行地方政府专项债券进行弥补。自 2015 年 1 月 1 日起，新预算法要求地方一般债务纳入一般公共预算管理、专项债务纳入政府性基金预算管理。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">本级、区本级、区级、区本级、辖区的区别</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>通常“全市 = 市本级 + 下属区县和县市”，但现实披露里“市级”和“市本级”并不总是严格区分。有些地方“市级 = 市本级”，有些地方“市级 + 下属经济区 = 市本级”，需要结合原始披露判断。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">债务限额、余额，及总计的关系</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>债务限额是地方政府债务总额不能突破的额度；债务余额是现有的地方政府债务余额。一个偏预算约束，一个偏实际存量。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">地方政府债务限额是预算还是实际值</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>地方政府债务限额均为预算值，不是实际发生值。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">户籍人口以及常住人口区别</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>判断时先看数据源是否注明“户籍人口”“户籍统计数”“常住人口”或“推算数据”。如果没有说明，通常以国统局标准为主，总人口默认为常住人口。</p>
+          <p>常住人口强调在某地区经常居住的人口，户籍人口强调户籍登记人口。人口流动扩大后，两者差异会明显拉大。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">财政预决算报告如何区分预算数、预算执行数、决算数？</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>预算数和上年预算执行数一般在年初随预算草案披露；决算数通常在次年 6-9 月由人大常委会审查通过后披露。</p>
+          <p>地方统计公报年初更常见预算执行数，地方统计年鉴年底更常见决算数。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">GDP如何区分现价、不变价</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>一般没有标明按照某年不变价（或可比价）计算的价值量指标，都属于现价指标；没有标明扣除价格因素（或可比价）的增长速度，也通常是现价比较增长速度。</p>
+          <p>地方统计局统计公报中的 GDP 一般是现价 GDP 且为初步核算数；统计年鉴中的历年 GDP 一般也是现价 GDP，但为最终核算数。国统局数据库披露的各省 GDP 也以现价为主，与地方披露可能存在小差异。</p>
+        </div>
+      </button>
+      <button class="faq-item" type="button">
+        <span class="faq-question">GDP增速的现价和不变价</span>
+        <span class="faq-toggle">展开</span>
+        <div class="faq-answer">
+          <p>地方统计局披露的统计公报中的 GDP 增速通常为不变价增速，且多为初步核算数。</p>
+        </div>
+      </button>
+    </div>
+    <button class="jump" data-goto="29">下一章：国际与行业</button>
+    <aside class="notes">
+      <p>这一页同样改成问答折叠结构，适合现场围绕地方债、人口、GDP 口径、预算决算逐条讲清楚。</p>
+      <p>建议默认先展开债务类指标和人口口径，因为这两类最容易在地方比较里出错。</p>
+      <p>想让大家记住的一句话是：地方经济数据做横向比较时，先看定义，再看数值。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="国际宏观定位">
+    <p class="kicker">GLOBAL MACRO</p>
+    <h2 class="h2">国际宏观不是孤立模块，而是外部联动系统</h2>
+    <div class="orbit-map orbit-map-live">
+      <div class="orbit-ring orbit-ring-a"></div>
+      <div class="orbit-ring orbit-ring-b"></div>
+      <div class="orbit-center">国内出口链、A股风格、大宗商品</div>
+      <span>外需</span><span>汇率</span><span>商品价格</span><span>利率</span><span>全球风险偏好</span>
+    </div>
+    <div class="callout">常见关注：美国CPI、非农就业、联邦基金利率、美元指数、美国国债收益率、欧元区PMI、日本CPI、IMF和世界银行预测。</div>
+    <aside class="notes">
+      <p>国际宏观主要服务全球宏观、汇率利率、大宗商品和跨境投资场景。</p>
+      <p>要强调它不是孤立模块。外需、汇率、商品价格、利率和全球风险偏好，会影响国内出口链、A股风格和大宗商品相关判断。</p>
+      <p>所以国际宏观数据既可以做跨国比较，也可以作为国内行业和资产判断的外部变量。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="国际宏观数据源">
+    <p class="kicker">GLOBAL SOURCES</p>
+    <h2 class="h2">国际宏观常见数据源</h2>
+    <div class="source-grid global">
+      <div><b>国际组织</b><span>IMF / World Bank / OECD / UN</span><p>跨国家比较、全球经济展望和中长期趋势判断。</p></div>
+      <div><b>主要央行</b><span>Fed / ECB / BOJ / BOE</span><p>政策利率、资产负债表、货币供应和金融条件。</p></div>
+      <div><b>统计机构</b><span>BLS / Eurostat / ONS</span><p>CPI、PPI、GDP、就业、零售、工业生产和贸易。</p></div>
+      <div><b>能源商品</b><span>EIA / IEA / OPEC / FAO / USDA</span><p>能源、农产品、金属的产量、库存、消费和价格。</p></div>
+      <div><b>市场公开数据</b><span>交易所 / VIX / 利率预期</span><p>把宏观发布与资产价格反应连接起来。</p></div>
+    </div>
+    <aside class="notes">
+      <p>这一页保留国际宏观来源分类。建议不要念全部英文缩写，而是按用途讲。</p>
+      <p>国际组织适合跨国比较和中长期判断；央行适合政策路径和流动性判断；统计机构适合跟踪经济基本面；商品来源适合能源和输入性通胀；市场数据适合连接数据、预期和交易。</p>
+      <p>这也能帮助产品同事理解为什么国际宏观需要不同层级的来源组织。</p>
+    </aside>
+  </section>
+
+  <section class="slide section-divider" data-title="章节：行业经济">
+    <p class="kicker">PART 03</p>
+    <h2 class="section-title">行业经济</h2>
+    <p class="section-lede">把宏观变量继续往下落到产业链景气、供需变化和公司基本面验证。</p>
+    <button class="jump" data-goto="32">开始本章</button>
+    <aside class="notes">
+      <p>这一页现在只作为“行业经济”分隔页使用，放在国际宏观两页之后更顺。</p>
+      <p>前两页先把外部变量讲清，再进入行业指标、产业链和公司基本面的中观验证，会更符合听众理解节奏。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="行业经济价值">
+    <p class="kicker">INDUSTRY ECONOMY</p>
+    <h2 class="h2">行业经济：连接宏观总量与公司基本面的中观层</h2>
+    <div class="bridge">
+      <div><b>宏观总量</b><p>经济是否改善</p></div>
+      <i></i>
+      <div><b>行业指标</b><p>价格、库存、产量、销量、开工率、进出口、利润、运价、票房、客流</p></div>
+      <i></i>
+      <div><b>公司基本面</b><p>盈利是否改善，经营是否验证</p></div>
+    </div>
+    <aside class="notes">
+      <p>行业经济是连接宏观总量与公司基本面的中观层。</p>
+      <p>宏观指标能告诉客户经济是否改善，但不能直接回答某个行业是否景气。行业指标通过价格、库存、产量、销量、开工率、进出口、运价、票房、客流等验证需求是否落地、供给是否变化、盈利是否改善。</p>
+      <p>这也是行业数据对投研客户特别有价值的地方。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="行业研究五问">
+    <p class="kicker">INDUSTRY QUESTIONS</p>
+    <h2 class="h2">行业研究常见的五个问题</h2>
+    <div class="question-matrix">
+      <div><b>需求是否改善</b><p>销量、订单、开工率、客流、票房、发电量、货运量</p></div>
+      <div><b>供给是否收缩</b><p>产量、产能利用率、检修、开工率、库存</p></div>
+      <div><b>价格是否传导</b><p>现货价格、期货价格、价差、PPI分行业</p></div>
+      <div><b>库存处于什么阶段</b><p>厂库、社库、港口库存、渠道库存</p></div>
+      <div><b>外需影响多大</b><p>出口金额、出口数量、出口价格、海外PMI</p></div>
+    </div>
+    <aside class="notes">
+      <p>这五个问题是行业经济模块最适合给新人掌握的分析框架。</p>
+      <p>需求类指标回升通常领先或同步反映景气改善；供给收缩叠加需求改善更容易带来价格上涨；价格变化决定收入弹性和上下游利润分配；库存阶段对应不同景气状态；外需用于判断出口链行业和公司基本面。</p>
+      <p>讲完这页，大家就能理解为什么行业经济要覆盖这么多高频和细分数据源。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="行业覆盖与来源导航">
+    <p class="kicker">INDUSTRY NAVIGATOR</p>
+    <h2 class="h2">按行业查看指标概览和代表性数据来源</h2>
+    <div class="industry-browser">
+      <div class="industry-nav">
+        <button class="industry-pill active" data-panel-group="industry" data-panel-target="agr">农林牧渔</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="mining">采掘</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="food">食品饮料</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="textile">纺织服装</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="chemical">化工</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="light">轻工制造</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="electronics">电子</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="appliance">家用电器</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="steel">钢铁</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="nonferrous">有色金属</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="build">建筑家具</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="machinery">机械设备</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="auto">汽车</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="med">医药生物</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="utility">公用事业</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="transport">交通运输</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="tmt">TMT</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="leisure">休闲服务</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="estate">房地产</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="finance">金融</button>
+        <button class="industry-pill" data-panel-group="industry" data-panel-target="trade">商业贸易</button>
+      </div>
+      <div class="industry-panels">
+        <article class="industry-panel active" data-panel-id="industry" data-panel-name="agr">
+          <h3>农林牧渔</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>蔬菜、棉花、生猪等价格指数，农产品期货价、现货价，农产品产销量，生猪屠宰量、生猪存栏量、棉花库存，农产品进出口，上市公司经营数据，国际农产品供需数据等。</p></div>
+            <div><b>数据来源</b><p>农业农村部、发改委、国统局、博亚和讯、中国养猪网、中国饲料工业信息网、中国玉米网、USDA。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="mining">
+          <h3>采掘</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>环渤海动力煤价格指数，动力煤、无烟煤、原油、汽柴油等分品种分国别分地区价格和产量，6大电厂耗煤量，煤焦炭、原油库存，煤及原油进出口、全球钻井平台数、储量和美国能源数据等。</p></div>
+            <div><b>数据来源</b><p>煤炭资源网、EIA、BP、我的钢铁网。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="food">
+          <h3>食品饮料</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>乳制品价格、葡萄酒价格指数、白糖价格、恒天然价格、酒及乳制品产量、食品进出口、分国别方便面需求数据。</p></div>
+            <div><b>数据来源</b><p>国统局、世界方便面协会、商务部。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="textile">
+          <h3>纺织服装</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>柯桥纺织、盛泽丝绸、义乌小商品城、嘉兴茧丝等指数，羽绒价格、纱线、坯布价格指数，布纱全国和分地产量，纺织品进出口数据。</p></div>
+            <div><b>数据来源</b><p>中国柯桥纺织指数、义乌中国小商品指数、中国棉花网、USDA。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="chemical">
+          <h3>化工</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>中纤价格指数，化工产品期货价、现货价，化工产品产销量、开工率、库存、进出口等数据。</p></div>
+            <div><b>数据来源</b><p>百川资讯、隆众化工、BP、ICE、EIA、郑商所、大商所、中国橡胶信息贸易网。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="light">
+          <h3>轻工制造</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>主要纸品全国和分地区产量，各类纸及纸板消费量、纸浆消耗量、废纸回收率、重点造纸企业产量、纸业进出口，艺术品价格及指数等。</p></div>
+            <div><b>数据来源</b><p>天津艺术品交易所、中国造纸协会、中国义乌小商品指数。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="electronics">
+          <h3>电子</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>中关村电子信息产品价格指数、台湾电子市场指数，液晶面板、LED、闪存等价格，全球半导体销售数据，液晶面板、手机出货量和韩国电子行业数据。</p></div>
+            <div><b>数据来源</b><p>信通院、韩国信息通信促进会、国际半导体设备与材料协会、witsview、中国半导体行业协会。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="appliance">
+          <h3>家用电器</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>电视、冰洗、空调、微波等产品产量、销量、库存量、出口量、线上线下销售额，以及空调分品牌线下零售量、零售额、市占率、均价等。</p></div>
+            <div><b>数据来源</b><p>国统局、海关、产业在线、中怡康、全国家用电器工业信息中心。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="steel">
+          <h3>钢铁</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>铁矿石、各类钢材的价格、产销量、储量、库存、进出口等数据。</p></div>
+            <div><b>数据来源</b><p>我的钢铁网、钢之家、西本新干线、兰格钢铁网、国际钢铁协会、中国钢铁工业协会等。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="nonferrous">
+          <h3>有色金属</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>铜铝铅锌期货价、国内外现货价，小金属、贵金属、废金属价格，有色品种产销量，港口和社会库存，进出口，分国别钴矿、锂矿、稀土产量和储量，各国央行黄金储备等。</p></div>
+            <div><b>数据来源</b><p>我的有色网、长江有色金属网、中国金属网、ZZ91再生网、世界黄金协会、USGS。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="build">
+          <h3>建筑家具</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>水泥、玻璃分地区价格，全国分地区产量，全国玻璃和水泥产能，分企业产能，PPP 数据。</p></div>
+            <div><b>数据来源</b><p>中国水泥网、中国价格信息网、中国玻璃、国统局。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="machinery">
+          <h3>机械设备</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>太阳能组件价格，挖掘机、起重机等分机械分地产量，挖掘机、推土机等分企业销量、分地区销量，机械进出口，日本机器人、挖掘机等机械发货量。</p></div>
+            <div><b>数据来源</b><p>中国工程机械工业协会、日本机器人工业协会、日本经济产业省制造产业局、Pvinights。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="auto">
+          <h3>汽车</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>上海公私车牌拍卖数据，GAIN 指数，汽车、乘用车、新能源汽车分地区分品牌产销量，进出口，经销商库存，保有量、上牌量、上险量，以及日本汽车相关数据和上市公司经营数据。</p></div>
+            <div><b>数据来源</b><p>国统局、中汽协、乘联会、日本汽车工业会、第一电动网。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="med">
+          <h3>医药生物</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>中药材价格指数、中药材/维生素/抗生素价格、医疗服务价格，采供血、中华骨髓库、药品销售、进出口、生物批签发、卫生机构和医院经营数据，全球卫生数据、上市公司经营数据。</p></div>
+            <div><b>数据来源</b><p>卫健委、米内网、中检所、中药材天地网、中国医药物资协会、中华骨髓库、健康网等。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="utility">
+          <h3>公用事业</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>自来水价格，全国及各地用水量、供水量、发电量、用电量、送电量，AQI 指数，分国别水电、核能、可再生能源发电量、消费量和碳排放量。</p></div>
+            <div><b>数据来源</b><p>生态环境部、中国水网、中电联、国统局、BP。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="transport">
+          <h3>交通运输</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>物流业景气指数、快递物流指数、中国沿海散货运价指数，以及公路、铁路、航空、水路客货运量、港口吞吐量、高速收费标准、造船完工量和上市公司经营数据。</p></div>
+            <div><b>数据来源</b><p>国家邮政局、交通部、宁波航运交易所、上海航运交易所、发改委、上市公司官网等。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="tmt">
+          <h3>TMT</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>全国及全球电影票房收入、观影人次、上映场次，分地区分影院分院线票房；软件业、电信业务量，联网、传感器、可穿戴设备、服务器、私有云市场规模，电脑、游戏机进出口，移动通信基站设备等产量。</p></div>
+            <div><b>数据来源</b><p>中国电影发行放映协会、信通院、工信部、CNNIC、国家电影资金办、游戏产业网、上市公司官网。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="leisure">
+          <h3>休闲服务</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>全国及分地区游客人数、旅游收入、国内旅游人均花费、星级饭店数量和房价、餐饮业数据，以及上市公司经营数据。</p></div>
+            <div><b>数据来源</b><p>文化和旅游部及各城市旅游局、国家及各城市统计局、国家移民管理局、上市公司公告。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="estate">
+          <h3>房地产</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>土地供应、地价、房地产开发投资、商品房价格、商品房销售、商业地产、房地产贷款、物业管理、房地产开发企业经济指标、建安成本和企业经营数据。</p></div>
+            <div><b>数据来源</b><p>自然资源部、国统局、各城市住建局、中指院、克而瑞、上市公司官网等。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="finance">
+          <h3>金融</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>金融机构信贷收支，银行业总资产和总负债，央行支付体系，商业银行不良贷款，银行网点数量，分国别债券余额，券商经营数据，保费收入与赔付，信托经营数据，私募基金管理规模及数量等。</p></div>
+            <div><b>数据来源</b><p>中国人民银行、国家金融监督管理总局、中国证券投资基金业协会、中国证券业协会、中国信托业协会、国家外汇管理局、用益信托网等。</p></div>
+          </div>
+        </article>
+        <article class="industry-panel" data-panel-id="industry" data-panel-name="trade">
+          <h3>商业贸易</h3>
+          <div class="industry-panel-grid">
+            <div><b>指标概览</b><p>社会消费品零售额，永辉、步步高、中百集团等公司经营数据，淘宝、天猫、京东、拼多多 GMV，中国网络零售发展指数。</p></div>
+            <div><b>数据来源</b><p>中华商业信息网、商务部、中国连锁经营协会、上市公司公告。</p></div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="summary-line">行业经济覆盖 31 个申万一级行业。对于钢铁、煤炭、化工等周期行业，研究员更关注高频更新，所以很多指标会以日频组织，用于及时跟踪价格、库存和开工率变化。</div>
+    <button class="jump" data-goto="36">下一章：经营数据</button>
+    <aside class="notes">
+      <p>这一页改成交互式行业导航，目的是把材料 3.1 里的行业、指标概览和数据来源都带回来，而不是只保留一张行业云。</p>
+      <p>建议现场点几个代表行业：钢铁、汽车、房地产、金融。这样听众会更容易理解 EDB 的行业模块到底覆盖到什么颗粒度。</p>
+      <p>如果时间有限，也至少点一个周期行业和一个消费/服务行业，帮助大家建立对比感。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="行业特有数据标签">
+    <p class="kicker">INDUSTRY TAGS</p>
+    <h2 class="h2">行业特有数据标签：把指标和产业链真正连起来</h2>
+    <div class="tag-story-grid">
+      <div class="tag-story-card">
+        <b>产品类别</b>
+        <p>对指标关联的产品信息进行拆解和标准化，并做递归和分类处理，使其与产业链产品层级绑定。</p>
+      </div>
+      <div class="tag-story-card">
+        <b>上下游关系</b>
+        <p>把静态的产业链关系型数据与动态更新的统计指标相关联，让“行研框架”与“数据指标”之间可以互相跳转。</p>
+      </div>
+      <div class="tag-story-card">
+        <b>指标类型标签</b>
+        <p>把供需、价格、库存、产量、销量等不同指标语义打上标签，支持从一个产品快速扩展到相关指标网。</p>
+      </div>
+    </div>
+    <div class="tag-examples">
+      <div class="tag-chain">
+        <b>钢铁行业示例</b>
+        <p>铁矿石 → 焦煤焦炭 → 生铁粗钢 → 钢材 → 基建 / 地产 / 制造业需求</p>
+      </div>
+      <div class="tag-chain">
+        <b>新能源汽车示例</b>
+        <p>锂矿 → 锂盐 → 电池材料 → 动力电池 → 整车 → 充电基础设施</p>
+      </div>
+    </div>
+    <div class="callout">通过产品类别、上下游关系和指标类型标签，用户可以从一个产品或行业快速扩展到相关供需、价格和库存指标，实现从行研到基本面研究的拉通。</div>
+    <aside class="notes">
+      <p>这一页对应材料 3.2。重点不是说“我们有标签”，而是说明这些标签为什么对研究有帮助。</p>
+      <p>产品类别让指标能挂到产业链上；上下游关系让用户能沿链条扩展；指标类型标签则让用户快速筛出供需、价格、库存等不同角度的数据。</p>
+      <p>这里最适合用钢铁和新能源车两个例子，一传统一新兴，大家会立刻明白它的产品价值。</p>
+    </aside>
+  </section>
+
+  <section class="slide section-divider" data-title="章节：经营数据">
+    <p class="kicker">PART 04</p>
+    <h2 class="section-title">经营数据内容介绍</h2>
+    <p class="section-lede">从宏观和中观进一步下钻到公司层面，补充财报难以及时反映的经营活动信息。</p>
+    <button class="jump" data-goto="37">开始本章</button>
+    <aside class="notes">
+      <p>经营数据是 EDB 从宏观和中观下钻到公司层面的重要延伸。</p>
+      <p>它不替代财务报表，而是补充财报难以及时反映的经营活动信息，用于业绩前瞻、同业横向比较、信用主体跟踪和产业链验证。</p>
+      <p>这一章建议讲得务实一点，因为后面 SQL 会直接用经营数据案例。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="经营数据产品体系">
+    <p class="kicker">OPERATION DATA</p>
+    <h2 class="h2">经营数据不替代财报，而是补足“经营活动本身”</h2>
+    <div class="operation-intro">
+      <div class="operation-copy">
+        <div class="guide-panel"><b>定义</b><p>经营数据是对公司微观数据的结构化抽取，便于对具体公司做研究，客观反映健康状况、运营效率和发展趋势。</p></div>
+        <div class="guide-panel"><b>重点范围</b><p>EDB 标品剔除了企业主营收入、利润和三大表等财务字段，重点记录公司对经营情况讨论中披露的产量、销量、库存、订单、渠道、资源储备等指标。</p></div>
+        <div class="guide-panel"><b>特殊范围</b><p>除标准经营指标外，还覆盖金融类公司经营分部信息，以及台股月度营收等特殊场景数据。</p></div>
+      </div>
+      <div class="table-like table-three compact operation-product-table">
+        <div class="head">表名</div><div class="head">数据来源</div><div class="head">主要数据内容</div>
+        <div>企业标准化经营数据<br><code>CFI_EnterStdOperatData</code></div><div>公司公告（定期报告、月/季度经营公告）</div><div>公司经营指标，如产销量、产能、订单等。</div>
+        <div>金融类公司经营分部信息<br><code>C_IN_FinSegmentInfo</code></div><div>公司定期报告</div><div>金融类公司经营分部信息，如营业收入、支出、利润等。</div>
+        <div>台股经营数据<br><code>C_IN_TWStockOperDate</code></div><div>公开资讯观测站</div><div>台股月度营收，包括当月、上月、累计和同比等。</div>
+      </div>
+    </div>
+    <aside class="notes">
+      <p>这里先把经营数据的边界讲清楚。它不是财务报表替代品，而是补足财报难以及时反映的经营活动信息。</p>
+      <p>讲法上建议按三层来走：先说“经营数据是什么”，再说“EDB 标品重点记录什么”，最后说“有哪些特殊范围”。</p>
+      <p>这样业务同事会更容易理解为什么经营数据对业绩前瞻和同业比较有价值。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="经营数据标准化结构">
+    <p class="kicker">STANDARDIZATION</p>
+    <h2 class="h2">标准化的核心：公司 + 指标，再把关键维度拆开</h2>
+    <div class="operation-standard">
+      <div class="table-like table-three compact operation-dim-table">
+        <div class="head">经营数据维度</div><div class="head">示例</div><div class="head">作用</div>
+        <div>公司主体</div><div>顺丰控股、航空公司、房企、银行等</div><div>确定数据归属和证券/主体映射。</div>
+        <div>指标类别</div><div>产量、销量、库存量、订单、客流、运力、日活/月活</div><div>统一不同披露中的核心经营含义。</div>
+        <div>标准产品</div><div>白酒、商品房、快递服务、航线、游戏产品等</div><div>支持同类产品跨公司比较。</div>
+        <div>标准地区</div><div>全国、华东、海外、具体城市等</div><div>支持区域拆分和区域经营分析。</div>
+        <div>统计口径</div><div>当期值、累计值、同比、环比、期末值</div><div>避免不同口径直接混用。</div>
+      </div>
+      <div class="operation-standard-side">
+        <div class="guide-panel"><b>难点</b><p>来源文本非结构化、公司披露口径不稳定、不同公司同一指标名称不完全一致，产品和地区维度也经常变化。</p></div>
+        <div class="guide-panel"><b>宽表示例</b><p><code>顺丰控股 | 2026/1/31 | 快件量:当期值:月 | 13.86 | 亿票</code></p><p><code>节能风电 | 发电量 | 风力发电 | 山东省 | 265420000 | 千瓦时</code></p></div>
+        <div class="guide-panel"><b>标准化目标</b><p>把非结构化披露加工成可横向比较、可纵向追踪的数据，满足产品、地区、性质等维度的单独提取与对比。</p></div>
+      </div>
+    </div>
+    <div class="callout">目标：实现公司不同年度数据的纵向可比，以及公司与公司间相同指标的横向可比。</div>
+    <aside class="notes">
+      <p>这一页要把 4.2 的重点讲清楚。经营数据不是直接抄公告，而是要经过标准化处理，最后形成一张可比的大宽表。</p>
+      <p>难点在于来源文本非结构化、口径不稳定、同名异义和产品地区维度变化，所以必须拆出公司主体、指标类别、标准产品、标准地区、统计口径这些关键维度。</p>
+      <p>最好结合顺丰和风电这两个样例讲，大家会更容易理解“宽表”和“可比性”到底长什么样。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="经营数据业务框架">
+    <p class="kicker">BUSINESS FRAMEWORK</p>
+    <h2 class="h2">业务框架要同时回答“通用逻辑”和“行业特性”</h2>
+    <div class="framework-grid expanded-framework">
+      <div><b>通用框架</b><p>将企业经营中反映健康状况、运营效率和发展趋势的指标进行汇总，按需求、供给、成本等模块形成通用框架，再对大模块逐步细分。</p></div>
+      <div><b>行业属性框架</b><p>结合行业特性和研究员框架，对不同行业重点覆盖不同指标。例如航空侧重航线、飞机数量、旅客运输量、货物运输量、载运率；游戏、社交等互联网行业则更关注日活、月活、注册用户数、充值流水等运营指标。</p></div>
+      <div><b>纳入逻辑</b><p>总体遵循三条：WIND 高频覆盖主体频繁出现的指标；WIND 覆盖较少但行业代表性强的指标；以及主观研究中使用频次高但友商未覆盖的指标。</p></div>
+    </div>
+    <div class="summary-line framework-summary">经营数据框架不是统一模板套所有行业，而是“通用框架打底 + 行业属性框架细化”。这样既能保证跨行业可理解，也能保留行业研究的专业颗粒度。</div>
+    <button class="jump" data-goto="40">下一章：SQL实战</button>
+    <aside class="notes">
+      <p>这一页是 4.3 的核心。要让听众知道，经营数据不是只做一个通用表，而是先有通用框架，再根据行业特性做不同指标覆盖。</p>
+      <p>这里最适合讲航空和互联网两个对照例子，一个偏资源和运营效率，一个偏用户活跃和流水。</p>
+      <p>最后把纳入逻辑讲清楚，大家就能理解为什么聚源框架里的指标并不是随机挑的。</p>
+    </aside>
+  </section>
+
+  <section class="slide section-divider" data-title="章节：SQL实战">
+    <p class="kicker">PART 05</p>
+    <h2 class="section-title">常见场景查询 SQL</h2>
+    <p class="section-lede">把业务问题翻译成查询步骤：定位指标、看覆盖、做横纵比较。</p>
+    <button class="jump" data-goto="41">进入操作台</button>
+    <aside class="notes">
+      <p>最后进入 SQL 实战。这个部分不要把 SQL 当成纯代码展示，而要当成操作指南。</p>
+      <p>现场讲法建议是：先说业务问题，再说需要限制哪些条件，最后看 SQL 的关键字段和过滤条件。</p>
+      <p>这样业务和产品同事也能理解查询背后的思路，数据同事可以直接拿去改。</p>
+    </aside>
+  </section>
+
+  <section class="slide" data-title="SQL实战操作台">
+    <p class="kicker">SQL LAB</p>
+    <h2 class="h2">SQL实战操作台：切换 SQL Server 案例并模拟运行</h2>
+    <div class="sql-tabs">
+      <button class="sql-tab active" data-case="case1">定位某一指标</button>
+      <button class="sql-tab" data-case="case2">地方经济覆盖</button>
+      <button class="sql-tab" data-case="case3">经营数据比较</button>
+    </div>
+    <div class="terminal-wrap sql-studio">
+      <article class="sql-case active" id="case1">
+        <div class="sql-workbench">
+          <div class="sql-editor-shell">
+            <div class="sql-editor-top">
+              <div class="sql-window-actions"><span></span><span></span><span></span></div>
+              <div class="sql-editor-title">SQLQuery_case1.sql - CALDB on SQLSERVER2019</div>
+              <span class="sql-connection-badge">dbo / 只读</span>
+            </div>
+            <div class="sql-toolbar">
+              <span>Database Engine Query</span>
+              <span>Results to Grid</span>
+              <span>UTF-8</span>
+            </div>
+            <pre class="sql-editor"><code>-- 场景 1：有指标相关信息，需要定位到某一指标
+SELECT 指标代码,指标名称,数据产品表,信息来源,单位,频率,起始日期,
+CASE WHEN A.指标状态 =1 THEN '有效' WHEN A.指标状态 =5 THEN '终止'END AS 指标状态
+FROM (
+SELECT A.IndicatorCode 指标代码, IndicatorName AS 指标名称,CASE WHEN DataTable = 1 THEN 'C_ED_MacroIndicatorData'
+WHEN DataTable = 2 THEN  'C_ED_CustomsData'
+WHEN DataTable = 3 THEN 'C_ED_IndFinData'
+WHEN DataTable = 4 THEN 'C_ED_RegEconData'
+END AS 数据产品表,InfoSource AS 信息来源,B.MS AS 单位,C.MS AS 频率,BeginDate 起始日期,IndiState 指标状态,IndiRemark,F.DimensionName 统计口径,G.DimensionName 统计区域 FROM CALDB..C_ED_IndicatorMain A
+LEFT  JOIN CALDB..C_ED_IDXSystemConst B ON A.UnitCode = B.DM AND B.LB = 17
+LEFT  JOIN CALDB..C_ED_IDXSystemConst C ON A.DisclosureFrequency = C.DM AND C.LB = 11
+LEFT  JOIN CALDB..C_ED_IndicatorDimension F ON A.IndicatorCode = F.IndicatorCode AND F.CategoryCode = 10
+LEFT  JOIN CALDB..C_ED_IndicatorDimension G ON A.IndicatorCode = G.IndicatorCode AND G.CategoryCode = 13
+UNION
+SELECT A.IndicatorCode, IndicatorName,'C_IN_IndicatorDataV',InfoSource,B.MS,C.MS,BeginDate,IndiState,IndiRemark,F.DimensionName ,G.DimensionName FROM CALDB..C_IN_IndicatorMain A
+LEFT JOIN CALDB..C_IN_SystemConst B ON A.UnitCode = B.DM AND B.LB = 17
+LEFT JOIN CALDB..C_IN_SystemConst C ON A.DisclosureFrequency = C.DM AND C.LB = 12
+LEFT JOIN CALDB..C_IN_IndicatorDimension F ON A.IndicatorCode=F.IndicatorCode AND F.CategoryCode=10
+LEFT JOIN CALDB..C_IN_IndicatorDimension G ON A.IndicatorCode=G.IndicatorCode AND G.CategoryCode=13
+UNION
+SELECT A.IndicatorCode, IndicatorName,'C_ED_LocMacroIndData',InfoSource,UnitName,B.ConstantName,BeginDate,IndiState,A.IndiRemark,IndCaliberName ,IndAreaName FROM CALDB..C_ED_LocIndicatorMain A
+LEFT JOIN CALDB..C_ED_LocSystemConst B ON A.DisclosureFrequency = B.ConstantCode AND B.TypeCode = 1000
+UNION
+SELECT IndicatorCode, IndicatorNameCH,'C_GED_MacroIndicatorData',InfoSource,B.ConstantNameCH,C.ConstantNameCH,BeginDate,IndiState,IndiRemark,CaliberName, RegionName FROM CALDB..C_GED_IndicatorMain A
+LEFT JOIN CALDB..C_GED_IDXSystemConst B ON A.UnitCode = B.ConstantCode AND B.CategoryCode = 17
+LEFT JOIN CALDB..C_GED_IDXSystemConst C ON A.DisclosureFrequency = C.ConstantCode AND C.CategoryCode = 11
+)A
+LEFT JOIN [10.106.22.51].JYDB.dbo.LC_AreaCode I ON A.统计区域 = I.AreaChiName
+LEFT JOIN JYAD..usrEDBCFZBYSB H ON A.指标代码= H.CFZBDM
+WHERE
+A.指标名称 LIKE '%社会消费品零售%'   --模糊搜索相关指标：GDP、CPI、PPI等
+--AND I.FirstLevelCode IN  (1000)   --限制行政级别：省1000、地级市2000、县级市3000、街道5000
+AND A.统计区域  IN ('中国') --限制统计区域
+--AND A.信息来源 = '中国人民银行'   --限制数据来源
+--AND A.统计口径 = '当期值'   --限制统计口径
+AND A.频率 IN ( '月' )  --限制频率
+AND (A.IndiRemark IS NULL OR A.IndiRemark NOT LIKE '%与%重复%')  AND H.CFZBDM IS NULL--备注有注释重复指标，需剔除
+ -- AND A.指标状态=1  --限定指标状态  1-有效，2-终止
+ORDER BY 指标名称</code></pre>
+          </div>
+          <div class="sql-result-shell">
+            <div class="sql-result-top">
+              <div>
+                <b>Results</b>
+                <span>定位某一指标-样例数据.xlsx · sheet1</span>
+              </div>
+              <button class="sql-run-button" type="button" data-result-target="result-case1">运行 SQL</button>
+            </div>
+            <div class="sql-result-panel" id="result-case1">
+              <div class="sql-result-placeholder">
+                <b>点击“运行 SQL”查看结果</b>
+                <p>模拟 SQL Server 的 Results Grid，展示样例文件里的前 5 行返回结果。</p>
+              </div>
+              <div class="sql-result-output">
+                <div class="sql-result-meta"><span>110 rows</span><span>8 columns</span><span>国家统计局 / 月频</span></div>
+                <div class="sql-grid-wrap">
+                  <table class="sql-grid">
+                    <thead>
+                      <tr><th>指标代码</th><th>指标名称</th><th>数据产品表</th><th>信息来源</th><th>单位</th><th>频率</th><th>起始日期</th><th>指标状态</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>110232463</td><td>社会消费品零售总额:餐饮收入:当期同比:月</td><td>C_ED_MacroIndicatorData</td><td>国家统计局</td><td>%</td><td>月</td><td>1995-01-31 00:00:00</td><td>有效</td></tr>
+                      <tr><td>110232467</td><td>社会消费品零售总额:餐饮收入:当期值:月</td><td>C_ED_MacroIndicatorData</td><td>国家统计局</td><td>亿元</td><td>月</td><td>1994-01-31 00:00:00</td><td>有效</td></tr>
+                      <tr><td>110232453</td><td>社会消费品零售总额:餐饮收入:累计同比:月</td><td>C_ED_MacroIndicatorData</td><td>国家统计局</td><td>%</td><td>月</td><td>1995-01-31 00:00:00</td><td>有效</td></tr>
+                      <tr><td>110232454</td><td>社会消费品零售总额:餐饮收入:累计值:月</td><td>C_ED_MacroIndicatorData</td><td>国家统计局</td><td>亿元</td><td>月</td><td>1952-12-31 00:00:00</td><td>有效</td></tr>
+                      <tr><td>110232460</td><td>社会消费品零售总额:城镇:当期同比:月</td><td>C_ED_MacroIndicatorData</td><td>国家统计局</td><td>%</td><td>月</td><td>2010-01-31 00:00:00</td><td>有效</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="sql-case" id="case2">
+        <div class="sql-workbench">
+          <div class="sql-editor-shell">
+            <div class="sql-editor-top">
+              <div class="sql-window-actions"><span></span><span></span><span></span></div>
+              <div class="sql-editor-title">SQLQuery_case2.sql - CALDB on SQLSERVER2019</div>
+              <span class="sql-connection-badge">dbo / 只读</span>
+            </div>
+            <div class="sql-toolbar">
+              <span>Database Engine Query</span>
+              <span>Results to Grid</span>
+              <span>UTF-8</span>
+            </div>
+            <pre class="sql-editor"><code>-- 场景 2：想了解地方经济某一类指标的地区覆盖情况
+select 标准名称代码,标准名称,频率,统计口径,
+COUNT(DISTINCT CASE WHEN 地区 = 1000 THEN  IndicatorName END)AS 省级,
+COUNT(DISTINCT CASE WHEN 地区 = 2000 THEN IndicatorName END)AS 地级市,
+COUNT(DISTINCT CASE WHEN 地区 = 3000 THEN IndicatorName END)AS 区县,
+COUNT(DISTINCT IndicatorName) AS 总计
+from
+(select DISTINCT(IndicatorCode),IndicatorName, NormalizedCode 标准名称代码,  NormalizedName 标准名称, B.ConstantName 频率, IndCaliberName 统计口径,C.FirstLevelCode 地区
+from C_ED_LocIndicatorMain A
+LEFT JOIN  C_ED_LocSystemConst B ON A.DisclosureFrequency = B.ConstantCode AND B.TypeCode = 1000
+LEFT JOIN  [10.106.22.51].JYDB.dbo.LC_AreaCode C ON A.IndicatorArea = C.AreaInnerCode
+  WHERE (A.IndiRemark IS NULL or A.IndiRemark not LIKE '%与%重复%')
+AND C.IfEffected =1)a
+WHERE 标准名称代码 IN ('EDB0000000KM','EDB0000000LB','EDB0000000ZO','EDB0000000ZM','EDB00000020F','EDB00000009R','EDB0000000AJ') --限制标准代码
+--AND 统计口径 ='当期值' --限制统计口径
+AND 频率 = '年' --限制频率
+GROUP BY 标准名称代码,标准名称,频率,统计口径
+ORDER BY 标准名称代码,频率,统计口径 DESC</code></pre>
+          </div>
+          <div class="sql-result-shell">
+            <div class="sql-result-top">
+              <div>
+                <b>Results</b>
+                <span>地方经济覆盖-样例数据.xlsx · sheet1</span>
+              </div>
+              <button class="sql-run-button" type="button" data-result-target="result-case2">运行 SQL</button>
+            </div>
+            <div class="sql-result-panel" id="result-case2">
+              <div class="sql-result-placeholder">
+                <b>点击“运行 SQL”查看结果</b>
+                <p>将返回省级、地级市、区县覆盖数，便于现场解释地方经济覆盖深度。</p>
+              </div>
+              <div class="sql-result-output">
+                <div class="sql-result-meta"><span>14 rows</span><span>8 columns</span><span>年频 / 覆盖统计</span></div>
+                <div class="sql-grid-wrap">
+                  <table class="sql-grid">
+                    <thead>
+                      <tr><th>标准名称代码</th><th>标准名称</th><th>频率</th><th>统计口径</th><th>省级</th><th>地级市</th><th>区县</th><th>总计</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>EDB00000009R</td><td>一般公共预算收入</td><td>年</td><td>当期值</td><td>31</td><td>333</td><td>2891</td><td>3446</td></tr>
+                      <tr><td>EDB00000009R</td><td>一般公共预算收入</td><td>年</td><td>当期同比增长率</td><td>31</td><td>333</td><td>2883</td><td>3399</td></tr>
+                      <tr><td>EDB0000000AJ</td><td>税收收入</td><td>年</td><td>当期值</td><td>31</td><td>333</td><td>2880</td><td>3389</td></tr>
+                      <tr><td>EDB0000000AJ</td><td>税收收入</td><td>年</td><td>当期同比增长率</td><td>31</td><td>332</td><td>2872</td><td>3375</td></tr>
+                      <tr><td>EDB0000000KM</td><td>GDP(不变价)</td><td>年</td><td>当期同比增长率</td><td>31</td><td>332</td><td>2844</td><td>3253</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="sql-case" id="case3">
+        <div class="sql-workbench">
+          <div class="sql-editor-shell">
+            <div class="sql-editor-top">
+              <div class="sql-window-actions"><span></span><span></span><span></span></div>
+              <div class="sql-editor-title">SQLQuery_case3.sql - CALDB on SQLSERVER2019</div>
+              <span class="sql-connection-badge">dbo / 只读</span>
+            </div>
+            <div class="sql-toolbar">
+              <span>Database Engine Query</span>
+              <span>Results to Grid</span>
+              <span>UTF-8</span>
+            </div>
+            <pre class="sql-editor"><code>--场景3：查询不同行业下A股上市公司的指标量
+select c.FirstIndustryName,count(1) from CFI_EnterStdOperatData a
+join [10.106.22.51].JYDB.dbo.SecuMain b on a.CompanyCode=b.CompanyCode
+join [10.106.22.51].JYDB.dbo.DZ_ExgIndustry c on b.CompanyCode=c.CompanyCode and c.Standard=38 and c.IfPerformed=1
+where b.SecuMarket in(18,83,90) and SecuCategory in(1,41) and ListedState=1
+group by c.FirstIndustryName</code></pre>
+          </div>
+          <div class="sql-result-shell">
+            <div class="sql-result-top">
+              <div>
+                <b>Results</b>
+                <span>经营数据比较-样例数据.xlsx · sheet1</span>
+              </div>
+              <button class="sql-run-button" type="button" data-result-target="result-case3">运行 SQL</button>
+            </div>
+            <div class="sql-result-panel" id="result-case3">
+              <div class="sql-result-placeholder">
+                <b>点击“运行 SQL”查看结果</b>
+                <p>返回按行业聚合后的指标量，可用于展示经营数据比较类查询的结果形态。</p>
+              </div>
+              <div class="sql-result-output">
+                <div class="sql-result-meta"><span>31 rows</span><span>2 columns</span><span>A 股上市公司 / 行业聚合</span></div>
+                <div class="sql-grid-wrap">
+                  <table class="sql-grid narrow">
+                    <thead>
+                      <tr><th>行业</th><th>指标量</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>通信</td><td>35410</td></tr>
+                      <tr><td>轻工制造</td><td>59974</td></tr>
+                      <tr><td>汽车</td><td>297040</td></tr>
+                      <tr><td>环保</td><td>31642</td></tr>
+                      <tr><td>有色金属</td><td>101071</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <aside class="notes">
+      <p>这一页是操作台，现场可以点击上方三个按钮切换案例，再点击右侧“运行 SQL”模拟执行。</p>
+      <p>第一个案例是定位指标，重点看指标名称模糊搜索、统计区域、频率、剔除重复备注和指标状态。第二个案例是地方经济覆盖，重点看省级、地级市、区县的覆盖统计逻辑。第三个案例是经营数据比较，重点看按行业聚合后的结果形态。</p>
+      <p>提醒大家：SQL 是模板，真正使用时要根据业务问题调整关键词、地区、频率、口径和状态；右侧结果表只是演示查询返回形态。</p>
+    </aside>
+  </section>
+
+</div>
+
+<div class="deck-hint">S 讲者模式 / T 切换主题 / O 总览 / 图片点击放大</div>
+<div class="zoom-layer" aria-hidden="true"><img alt="zoomed source image"><button type="button">关闭</button></div>
+
+<script src="assets/runtime.js"></script>
+<script src="assets/animations/fx-runtime.js"></script>
+<script src="interaction.js"></script>
+</body>
+</html>
