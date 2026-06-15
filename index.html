@@ -40,7 +40,7 @@
 <button class="nav-card" data-goto="4"><span>01</span><b>业务版图</b><em>EDB定位 / 四大模块</em></button>
 <button class="nav-card" data-goto="7"><span>02</span><b>数据结构</b><em>1.0 / 2.0 / 维度体系</em></button>
 <button class="nav-card" data-goto="17"><span>03</span><b>宏观数据</b><em>来源 / 口径 / 发布节奏</em></button>
-<button class="nav-card" data-goto="29"><span>04</span><b>行业数据</b><em>外部联动 / 中观验证</em></button>
+<button class="nav-card" data-goto="31"><span>04</span><b>行业数据</b><em>外部联动 / 中观验证</em></button>
 <button class="nav-card" data-goto="36"><span>05</span><b>经营数据</b><em>公司维度 / 横纵比较</em></button>
 <button class="nav-card" data-goto="40"><span>06</span><b>SQL应用</b><em>定位指标 / 覆盖查询 / 案例切换</em></button>
 </div>
@@ -163,7 +163,7 @@
 <div class="content-shot-layout structure-layout">
 <figure class="shot-card tall">
 <img alt="EDB套表结构原始截图" data-zoomable="" src="assets/source-images/image1.png"/>
-<figcaption>原始材料中的套表关系图</figcaption>
+<figcaption>地方经济套表结构</figcaption>
 </figure>
 <div class="table-like compact business-understanding">
 <div class="head">表类型</div><div class="head">主要作用</div><div class="head">业务理解</div>
@@ -263,11 +263,11 @@
 <div class="table-like compact merged-table">
 <div class="head"></div><div class="head">中国宏观</div><div class="head">地方经济</div><div class="head">国际宏观</div><div class="head">行业经济</div>
 <div>指标基本信息</div><div class="span-4">EDB指标信息表 C_ED_IndicatorInfo</div>
-<div>数据表(免费公开)</div><div>中国宏观基础数据 C_ED_MacroBasicData</div><div>地方经济基础数据 C_ED_LocBasicData</div><div>国际宏观基础数据 C_ED_GlbBasicData</div><div>行业经济基础数据 C_ED_IndBasicData</div>
-<div>数据表(需授权)</div><div>国际宏观基础数据 C_ED_GlbBasicData</div><div>地方经济特色数据 C_ED_LocCharData</div><div>国际宏观特色数据 C_ED_GlbCharData</div><div>行业经济特色数据 C_ED_IndCharData</div>
-<div>地方经济特色数据 C_ED_LocCharData</div><div>国际宏观特色数据 C_ED_GlbCharData</div><div>地方经济指标层级表 C_ED_LocIndicatorLevel</div><div>国际宏观指标树形表 C_GED_IndicatorTree</div><div>行业指标树 C_IN_IndicatorTree</div>
-<div>维度与标签</div><div class="span-4">国际宏观指标树形表 C_GED_IndicatorTree</div>
-<div>行业指标树 C_IN_IndicatorTree</div><div class="span-4">海关产品代码表 CT_CustomsProducts<br/>EDB数据更新规律表 C_ED_DataUpdateRule<br/>EDB单位换算表 C_ED_UnitTrans<br/>EDB系统常量表 C_ED_SystemConst</div>
+<div>数据表(免费公开)</div><div>中国宏观基础数据 C_ED_MacroBasicData</div><div>地方经济基础数据 C_ED_LocBasicData</div><div>中国宏观特色数据 C_ED_MacroCharData<br/>宏观债券市场数据 C_ED_BondData</div><div>行业经济基础数据 C_ED_IndBasicData</div>
+<div>数据表(需授权)</div><div>中国宏观特色数据 C_ED_MacroCharData<br/>宏观债券市场数据 C_ED_BondData</div><div>地方经济特色数据 C_ED_LocCharData</div><div>EDB指标层级表 C_ED_IndiHierarchy</div><div>行业经济特色数据 C_ED_IndCharData</div>
+<div>指标目录树</div><div class="span-4">EDB指标层级表 C_ED_IndiHierarchy</div>
+<div>维度与标签</div><div class="span-4">EDB业务标签表 C_ED_BusinessTag<br/>EDB指标维度信息表(全) edb_ind_dim_info_all</div>
+<div>辅助功能表</div><div class="span-4">海关产品代码表 CT_CustomsProducts<br/>EDB数据更新规律表 C_ED_DataUpdateRule<br/>EDB单位换算表 C_ED_UnitTrans<br/>EDB系统常量表 C_ED_SystemConst</div>
 </div>
 <aside class="notes">
 <p>这一页对应材料 1.2 章节里的第二张表，形式上类似第 9 页，但内容换成 2.0。</p>
